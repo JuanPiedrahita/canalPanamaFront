@@ -15,8 +15,13 @@ export class OracleService {
   });
 
   //Urls
-  url: string = "http://localhost:8080/canalPanamaBack/rest/";
-  login: string = "login"
+  url: string = "http://localhost:8081/canalPanamaBack/rest/";
+  login: string = "login";
+  logout: string = "logout";
+  usuarios: string = "usuario/all";
+  permisos: string = "usuario/permisos";
+  postUser: string = "usuario/new"
+  deleteUser: string = "usuario/delete";
 
   constructor(private http: Http) { }
 
@@ -56,7 +61,27 @@ export class OracleService {
   }
 
   getLogout(){
-    return this.oracleGet("logout", null);
+    return this.oracleGet(this.logout, null);
+  }
+
+  getUsuarios(){
+    return this.oracleGet(this.usuarios,null);
+  }
+
+  getUsuario(username: string){
+    return this.oracleGet(this.permisos,{'username':username});
+  }
+
+  postUsuario(username: string, password: string, role: string){
+    return this.oraclePost(this.postUser,{"username":username,"password":password,"role":role});
+  }
+
+  deleteUsuario(username: string){
+    return this.oraclePost(this.deleteUser,{"username":username})
+  }
+
+  getPermisos(username: string){
+    return this.oracleGet(this.permisos,{"username":username});
   }
 
 }

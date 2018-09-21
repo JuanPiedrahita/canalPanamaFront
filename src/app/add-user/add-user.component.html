@@ -1,3 +1,80 @@
-<p>
-  add-user works!
-</p>
+<div class="center">
+  <div *ngIf="!mostrarUsuarios">
+    <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+    <h1>Cargando datos</h1>
+  </div>
+  <div class="" *ngIf="mostrarUsuarios">
+    <h2> Usuarios</h2>
+    <br>
+    <table style="width:100%; text-align:center">
+      <tr>
+        <th>USUARIO </th>
+        <th>ACCIONES </th>
+      </tr>
+      <tr *ngFor="let usuario of usuarios">
+        <th> {{usuario.Username}} </th>
+        <th> 
+          <i (click)="verPermisos(usuario.Username)" class="fa fa-eye fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Ver Permisos"></i>
+          <i (click)="borrarUsuario(usuario.Username)" class="fa fa-trash fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Eliminar Usuario"></i>
+        </th>
+      </tr>
+    </table>
+  </div>
+</div>
+<br>
+<div class="col center">
+  <input (click)="formAgregarUsuario=!formAgregarUsuario" class="btn" type="submit" value="Crear Usuario?" style="margin: auto">
+  <br>
+  <div *ngIf="formAgregarUsuario">
+      <div *ngIf="!registrnadoUsuario">
+        <form (ngSubmit)="crearUsuario()" #userForm="ngForm">
+            <input [(ngModel)]="usuario.username" name="nombre" class="txt" placeholder="Digite el nombre de  usuario" required>
+        
+            <input [(ngModel)]="usuario.password" name="password" class="txt" type="text" placeholder="Digite la contraseña" required>
+
+            <select [(ngModel)]="usuario.role" name="rol" placeholder="Seleccione el rol" required> 
+              <option  value="R_AGENTE_BUQUE">R_AGENTE_BUQUE</option>
+              <option  value="R_ACP_PASO">R_ACP_PASO</option>
+              <option  value="R_ACP_RESERVA">R_ACP_RESERVA</option>
+            </select>
+            <br> 
+            <br>
+            <input [disabled]="!userForm.form.valid" class="btn" type="submit" value="Ingresar" style="margin: auto">
+        </form>
+      </div>
+      <div *ngIf="registrnadoUsuario">
+        <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+        <h1>Registrando Usuario</h1>
+      </div>
+  </div>
+</div>
+<div class="col" *ngIf="mostrarPermisos">
+  <div *ngIf="cargandoPermisos" class="center">
+    <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+    <h1>Cargando Permisos</h1>
+  </div>
+  <div class="" *ngIf="!cargandoPermisos">
+    <h2 class="center"> Permisos usuario {{selectedUser}}</h2>
+    <br>
+    <table style="width:100%; text-align:center">
+      <tr>
+        <th> Usuario </th>
+        <th> Rol </th>
+        <th> Rol Padre </th>
+        <th> Privilegios </th>
+        <th> Tabla </th>
+        <th> Columna </th>
+        <th> Propietario </th>
+      </tr>
+      <tr *ngFor="let permiso of permisos">
+        <th> {{permiso.Usuario}} </th>
+        <th> {{permiso.Rol}} </th>
+        <th> {{permiso.Rol_Padre}} </th>
+        <th> {{permiso.Privilegios}} </th>
+        <th> {{permiso.Tabla}} </th>
+        <th> {{permiso.Columna}} </th>
+        <th> {{permiso.Propietario}} </th>
+      </tr>
+    </table>
+  </div>
+</div>
