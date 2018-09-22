@@ -28,7 +28,14 @@
   <div *ngIf="formAgregarUsuario">
       <div *ngIf="!registrnadoUsuario">
         <form (ngSubmit)="crearUsuario()" #userForm="ngForm">
-            <input [(ngModel)]="usuario.username" name="nombre" class="txt" placeholder="Digite el nombre de  usuario" required>
+            
+            <input [(ngModel)]="usuario.id" name="nombre" class="txt" type="number" placeholder="Digite el id" required>
+
+            <input [(ngModel)]="usuario.nombre" name="nombre" class="txt" type="text" placeholder="Digite el nombre" required>
+
+            <input [(ngModel)]="usuario.apellido" name="nombre" class="txt" type="text" placeholder="Digite el apellido" required>
+
+            <input [(ngModel)]="usuario.username" name="username" class="txt" placeholder="Digite el nombre de  usuario" required>
         
             <input [(ngModel)]="usuario.password" name="password" class="txt" type="text" placeholder="Digite la contraseña" required>
 
@@ -36,9 +43,18 @@
               <option  value="R_AGENTE_BUQUE">R_AGENTE_BUQUE</option>
               <option  value="R_ACP_PASO">R_ACP_PASO</option>
               <option  value="R_ACP_RESERVA">R_ACP_RESERVA</option>
+              <option  value="R_ACP_ADMIN">R_ACP_ADMIN</option>
             </select>
             <br> 
             <br>
+            <select *ngIf="usuario.role=='R_AGENTE_BUQUE'" [(ngModel)]="usuario.roleBuque" name="roleBuque" placeholder="Seleccione el rol en el buque" required> 
+              <option  value="DUENO">DUENO</option>
+              <option  value="CAPITAN">CAPITAN</option>
+              <option  value="OPERARION">OPERARIO</option>
+            </select>
+            <br>
+            <br>
+
             <input [disabled]="!userForm.form.valid" class="btn" type="submit" value="Ingresar" style="margin: auto">
         </form>
       </div>
