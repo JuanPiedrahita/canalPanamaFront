@@ -15,13 +15,15 @@ import { HttpModule } from '@angular/http'
 import { OracleService } from './oracle.service';
 import { AddUserComponent } from './add-user/add-user.component';
 import { BuqueComponent } from './buque/buque.component';
+import { ClienteComponent } from './cliente/cliente.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AddUserComponent,
-    BuqueComponent
+    BuqueComponent,
+    ClienteComponent
   ],
   imports: [
     BrowserModule,
