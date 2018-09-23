@@ -6,6 +6,7 @@ import { AddUserComponent } from './add-user/add-user.component'
 import { BuqueComponent } from './buque/buque.component'
 import { ClienteComponent } from './cliente/cliente.component'
 import { CupoComponent } from './cupo/cupo.component'
+import { DisponibilidadComponent } from './disponibilidad/disponibilidad.component'
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'cupo',
     component: CupoComponent
+  },
+  {
+    path: 'disponibilidad',
+    component: DisponibilidadComponent
   },
 ];
 

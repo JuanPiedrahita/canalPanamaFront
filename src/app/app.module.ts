@@ -17,6 +17,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { BuqueComponent } from './buque/buque.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { CupoComponent } from './cupo/cupo.component';
+import { DisponibilidadComponent } from './disponibilidad/disponibilidad.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CupoComponent } from './cupo/cupo.component';
     AddUserComponent,
     BuqueComponent,
     ClienteComponent,
-    CupoComponent
+    CupoComponent,
+    DisponibilidadComponent
   ],
   imports: [
     BrowserModule,

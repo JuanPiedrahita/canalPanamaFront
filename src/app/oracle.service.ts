@@ -31,6 +31,7 @@ export class OracleService {
   newCupo: string = "cupo/post";
   updateCupo: string = "cupo/update";
   cupos: string = "cupo/get";
+  disponibilidad: string = "disponibilidad"
 
   constructor(private http: Http) { }
 
@@ -127,6 +128,10 @@ export class OracleService {
 
   insertCupo(cupo: any){
     return this.oraclePost(this.newCupo,cupo);
+  }
+
+  getDisponibilidad(tipoBuque: string, fecha: Date){
+    return this.oracleGet(this.disponibilidad, {"tipoBuque":tipoBuque,"fecha":fecha});
   }
 
 }
