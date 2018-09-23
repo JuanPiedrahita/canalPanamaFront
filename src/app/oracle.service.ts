@@ -75,8 +75,8 @@ export class OracleService {
     return this.oracleGet(this.permisos,{'username':username});
   }
 
-  postUsuario(username: string, password: string, role: string){
-    return this.oraclePost(this.postUser,{"username":username,"password":password,"role":role});
+  postUsuario(user: any){
+    return this.oraclePost(this.postUser,user);
   }
 
   deleteUsuario(username: string){

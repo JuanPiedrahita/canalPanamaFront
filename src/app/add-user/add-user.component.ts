@@ -34,6 +34,10 @@ export class AddUserComponent implements OnInit {
       username : "",
       password: "",
       role: "",
+      nombre:"",
+      apellido:"",
+      id:"",
+      roleBuque:"",
     };
     this.oracle.getUsuarios()
       .toPromise()
@@ -55,7 +59,7 @@ export class AddUserComponent implements OnInit {
 
   crearUsuario(){
     this.registrnadoUsuario = true;
-    this.oracle.postUsuario(this.usuario.username,this.usuario.password,this.usuario.role)
+    this.oracle.postUsuario(this.usuario)
       .toPromise()
         .then((res:any) => {
           if(JSON.parse(res._body).clase == undefined){
