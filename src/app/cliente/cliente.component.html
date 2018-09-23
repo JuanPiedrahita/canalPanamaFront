@@ -1,0 +1,44 @@
+<div class="center">
+  <div *ngIf="!mostrarClientes">
+    <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+    <h1>Cargando Clientes</h1>
+  </div>
+  <div class="" *ngIf="mostrarClientes">
+    <h2> Cliente</h2>
+    <br>
+    <table style="width:100%; text-align:center">
+      <tr>
+        <th>K_CLIENTE</th>
+        <th>N_NOMBRE </th>
+        <th>ACCIONES </th>
+      </tr>
+      <tr *ngFor="let cliente of clientes">
+        <th>{{cliente.K_CLIENTE}}</th>
+        <th>{{cliente.N_NOMBRE}} </th>
+        <th> 
+          <i (click)="borrarCliente(cliente.K_CLIENTE)" class="fa fa-trash fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Eliminar Usuario"></i>
+        </th>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="col center">
+  <input (click)="formAgregarCliente=!formAgregarCliente" class="btn" type="submit" value="Crear Cliente" style="margin: auto">
+  <br>
+  <div *ngIf="formAgregarCliente">
+      <div *ngIf="!registrandoCliente">
+        <form (ngSubmit)="crearCliente()" #clienteForm="ngForm">
+            <input [(ngModel)]="cliente.K_CLIENTE" name="nombre" class="txt" type="number" placeholder="Digite el codigo del cliente" required>
+        
+            <input [(ngModel)]="cliente.N_NOMBRE" name="nombre" class="txt" type="text" placeholder="Digite el nombre del cliente" required>
+            <br> 
+            <br>
+            <input [disabled]="!clienteForm.form.valid" class="btn" type="submit" value="Crear" style="margin: auto">
+        </form>
+      </div>
+      <div *ngIf="registrandoCliente">
+        <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+        <h1>Registrando Cliente</h1>
+      </div>
+  </div>
+</div>

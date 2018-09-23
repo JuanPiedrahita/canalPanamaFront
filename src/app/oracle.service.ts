@@ -22,6 +22,9 @@ export class OracleService {
   permisos: string = "usuario/permisos";
   postUser: string = "usuario/new"
   deleteUser: string = "usuario/delete";
+  Clientes: string = "cliente/all";
+  newCliente:string= "cliente/new"; 
+  deleteCliente:string="cliente/delete";
 
   constructor(private http: Http) { }
 
@@ -82,6 +85,18 @@ export class OracleService {
 
   getPermisos(username: string){
     return this.oracleGet(this.permisos,{"username":username});
+  }
+
+  getClientes(){
+    return this.oracleGet(this.Clientes,null)
+  }
+
+  postClientes(cliente: any){
+    return this.oraclePost(this.newCliente,cliente)
+  }
+  
+  borrarCliente(K_CLIENTE:number){
+    return this.oraclePost(this.deleteCliente,{"K_CLIENTE":K_CLIENTE})
   }
 
 }
