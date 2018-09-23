@@ -12,12 +12,17 @@ export class ReservaComponent implements OnInit {
   mostrarReservas: boolean;
   registrandoReserva: boolean;
   formAgregarReserva: boolean;
+  permitirEditarReserva: boolean;
+  editandoReserva: boolean;
   verificando: boolean;
+  cuposNuevaDisponibles: boolean;
+  verificandoNueva: boolean;
   reservas: any[];
   buques: any[];
   reserva: any;
   cuposDisponibles: boolean;
   dateToday: string  = new Date().toJSON().split('T')[0];
+  reservaTemporal: any;
 
   constructor(private router: Router, private oracle:  OracleService) { }
 
@@ -30,8 +35,13 @@ export class ReservaComponent implements OnInit {
   	  this.formAgregarReserva = false;
   	  this.cuposDisponibles = false;
   	  this.verificando = false;
+  	  this.permitirEditarReserva = false;
+  	  this.editandoReserva = false;
+  	  this.cuposNuevaDisponibles = false;
+  	  this.verificandoNueva = false;
   	  this.reservas = [];
   	  this.reserva = {};
+  	  this.reservaTemporal = {};
   	  //Obtener reservas
   	  this.oracle.getReservas(localStorage.getItem("user"))
   	  	.toPromise()
@@ -93,6 +103,33 @@ export class ReservaComponent implements OnInit {
         }); 
   }
 
+  nuevaVerificarDisponibilidad(){
+  	if(this.reservaTemporal.F_FECHA_NUEVA != this.reservaTemporal.F_FECHA){
+  		this.verificandoNueva = true;
+    	this.oracle.getDisponibilidad(this.reservaTemporal.N_TIPO_BUQUE,this.reservaTemporal.F_FECHA_NUEVA)
+	      .toPromise()
+	        .then((res:any) => {
+	          console.log(res);
+	          if(JSON.parse(res._body).clase == undefined){
+	            //Si no hay error
+	            this.verificandoNueva = false;
+	            this.cuposNuevaDisponibles = JSON.parse(res._body).disponibles>0;
+	            alert(JSON.stringify(JSON.parse(res._body)));
+	          } else {
+	            //Si hay error lo muestra
+	            this.verificandoNueva = false;
+	            alert(JSON.stringify(JSON.parse(res._body)));
+	          }
+	        })
+	        .catch((error) => {
+	          this.verificandoNueva = false;
+	          alert(error)
+	        }); 
+  	} else {
+  		alert("Las fechas no pueden ser iguales");
+  	}
+  }
+
   crearReserva(){
   	this.reserva.K_BUQUE = this.reserva.buque.K_SIN;
   	this.reserva.tipoBuque = this.reserva.buque.N_TIPO_BUQUE;
@@ -137,4 +174,32 @@ export class ReservaComponent implements OnInit {
 	        });  
   	}  
 
+  	editarReserva(reserva: any){
+  		this.reservaTemporal = reserva;
+  		this.permitirEditarReserva = true;
+  	}
+
+  	actualizarReserva(){
+  		this.editandoReserva = true;
+  		this.oracle.updateReserva(this.reservaTemporal.K_NUMERO,this.reservaTemporal.F_FECHA
+  			,this.reservaTemporal.F_FECHA_NUEVA,this.reservaTemporal.N_TIPO_BUQUE)
+		  	.toPromise()
+		        .then((res:any) => {
+		          if(JSON.parse(res._body).clase == undefined){
+		            //Si no hay error
+		            this.editandoReserva = false;
+		            this.ngOnInit();
+		          } else {
+		            //Si hay error lo muestra
+		            this.editandoReserva = false;
+		          }
+		          alert(JSON.stringify(JSON.parse(res._body)));
+		        })
+		        .catch((error) => {
+		          this.editandoReserva = false;
+		          alert(error)
+		        }); 
+  	}
+
+  	
 }

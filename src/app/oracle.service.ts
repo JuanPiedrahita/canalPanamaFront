@@ -150,8 +150,13 @@ export class OracleService {
     return this.oraclePost(this.eliminarReserva, {"k_numero":k_numero,"f_fecha":f_fecha,"tipoBuque":tipoBuque});
   }
 
-  updateReserva(reserva: any){
-    return this.oraclePost(this.modificarReserva,reserva);
+  updateReserva(k_numero: number, f_fecha_antigua: Date, f_fecha_nueva: Date,tipoBuque:string){
+    return this.oraclePost(this.modificarReserva,{
+      "k_numero":k_numero,
+      "f_fecha_antigua":f_fecha_antigua,
+      "f_fecha_nueva":f_fecha_nueva,
+      "tipoBuque":tipoBuque
+    });
   }
 
 }

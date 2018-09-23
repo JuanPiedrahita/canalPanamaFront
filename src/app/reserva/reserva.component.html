@@ -30,7 +30,7 @@
         <th>{{reserva.N_PUERTO_SALIDA}}</th> 
         <th>{{reserva.N_TIPO_CARGA}}</th> 
         <th> 
-          <i (click)="actualizarReserva(reserva)" class="fa fa-pencil fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Eliminar Reserva"></i>
+          <i (click)="editarReserva(reserva)" class="fa fa-pencil fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Eliminar Reserva"></i>
           <i (click)="eliminarReserva(reserva)" class="fa fa-trash fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Eliminar Reserva"></i>
         </th>
       </tr>
@@ -84,4 +84,28 @@
         <h1>Verificando Disponibilidad</h1>
       </div>
   </div>
+</div>
+<div class="col center" *ngIf="permitirEditarReserva">
+      <div *ngIf="!editandoReserva && !verificandoNueva">
+        <div *ngIf="!cuposNuevaDisponibles">
+          <form (ngSubmit)="nuevaVerificarDisponibilidad()" #disponibilidadTemporalForm="ngForm">
+            <input [(ngModel)]="reservaTemporal.F_FECHA_NUEVA" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha de la reserva" required [min]="dateToday">
+            <br>
+            <br>
+            <input [disabled]="!disponibilidadTemporalForm.form.valid" class="btn" type="submit" value="Verificar Disponibilidad" style="margin: auto">
+          </form>
+        </div>
+        <div *ngIf="cuposNuevaDisponibles">
+          <input [(ngModel)]="reservaTemporal.F_FECHA_NUEVA" [disabled]="cuposNuevaDisponibles" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha de la reserva" required [min]="dateToday">
+          <input [disabled]="!disponibilidadTemporalForm.form.valid" class="btn" type="submit" (click)="actualizarReserva()" value="Cambiar fecha" style="margin: auto">
+        </div>
+      </div> 
+      <div *ngIf="editandoReserva">
+        <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+        <h1>Editando Reserva</h1>
+      </div>
+      <div *ngIf="verificandoNueva">
+        <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+        <h1>Verificando Disponibilidad</h1>
+      </div>
 </div>
