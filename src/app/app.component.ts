@@ -31,14 +31,16 @@ export class AppComponent {
               this.router.navigate(['/home']);
             } else {
               //Si hay error lo muestra
+              this.user.name = "";
+              this.user.pass = "";
               alert(JSON.stringify(JSON.parse(res._body)));
             }
           })
           .catch((error) => {
+            this.user.name = "";
+            this.user.pass = "";
             alert(error);
           });
-    this.user.name = "";
-    this.user.pass = "";
   }
 
   logout(){

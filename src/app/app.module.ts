@@ -14,12 +14,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http'
 import { OracleService } from './oracle.service';
 import { AddUserComponent } from './add-user/add-user.component';
+import { BuqueComponent } from './buque/buque.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AddUserComponent
+    AddUserComponent,
+    BuqueComponent
   ],
   imports: [
     BrowserModule,

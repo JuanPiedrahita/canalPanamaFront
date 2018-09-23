@@ -22,6 +22,10 @@ export class OracleService {
   permisos: string = "usuario/permisos";
   postUser: string = "usuario/new"
   deleteUser: string = "usuario/delete";
+  buques: string = "buque/all";
+  newBuque: string = "buque/new";
+  deleteBuque: string = "buque/delete";
+
 
   constructor(private http: Http) { }
 
@@ -82,6 +86,18 @@ export class OracleService {
 
   getPermisos(username: string){
     return this.oracleGet(this.permisos,{"username":username});
+  }
+
+  getBuques(username: string){
+    return this.oracleGet(this.buques,{"username":username});
+  }
+
+  postBuque(buque: any){
+    return this.oraclePost(this.newBuque,buque);
+  }
+
+  borrarBuque(K_SIN: number){
+    return this.oraclePost(this.deleteBuque,{"K_SIN":K_SIN});
   }
 
 }

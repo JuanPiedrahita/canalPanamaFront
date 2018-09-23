@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OracleService } from '../oracle.service';
 
 @Component({
@@ -19,42 +20,46 @@ export class AddUserComponent implements OnInit {
   mostrarPermisos: boolean;
   cargandoPermisos: boolean;
 
-  constructor(private oracle: OracleService) { }
+  constructor(private router:Router, private oracle: OracleService) { }
 
   ngOnInit() {
-    this.usuarios = [];
-    this.mostrarUsuarios = false;
-    this.formAgregarUsuario = false;
-    this.registrnadoUsuario = false;
-    this.mostrarPermisos = false;
-    this.cargandoPermisos = false;
-    this.selectedUser = undefined;
-    this.permisos = [];
-    this.usuario = {
-      username : "",
-      password: "",
-      role: "",
-      nombre:"",
-      apellido:"",
-      id:"",
-      roleBuque:"",
-    };
-    this.oracle.getUsuarios()
-      .toPromise()
-        .then((res: any) => {
-          if(JSON.parse(res._body).clase == undefined){
-            //Si no hay error
-            this.usuarios = JSON.parse(res._body).response;
-            this.mostrarUsuarios = true;
-          } else {
-            //Si hay error lo muestra
-            this.mostrarUsuarios = true;
-            alert(JSON.stringify(JSON.parse(res._body)));
-          }
-        })
-        .catch((error) => {
-          alert(error)
-        });
+    if (localStorage.getItem("user") == null) {
+      this.router.navigate([""]);
+    } else {
+      this.usuarios = [];
+      this.mostrarUsuarios = false;
+      this.formAgregarUsuario = false;
+      this.registrnadoUsuario = false;
+      this.mostrarPermisos = false;
+      this.cargandoPermisos = false;
+      this.selectedUser = undefined;
+      this.permisos = [];
+      this.usuario = {
+        username : "",
+        password: "",
+        role: "",
+        nombre:"",
+        apellido:"",
+        id:"",
+        roleBuque:"",
+      };
+      this.oracle.getUsuarios()
+        .toPromise()
+          .then((res: any) => {
+            if(JSON.parse(res._body).clase == undefined){
+              //Si no hay error
+              this.usuarios = JSON.parse(res._body).response;
+              this.mostrarUsuarios = true;
+            } else {
+              //Si hay error lo muestra
+              this.mostrarUsuarios = true;
+              alert(JSON.stringify(JSON.parse(res._body)));
+            }
+          })
+          .catch((error) => {
+            alert(error)
+          });
+     }
   }
 
   crearUsuario(){

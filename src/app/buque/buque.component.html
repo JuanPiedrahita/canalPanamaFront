@@ -1,0 +1,81 @@
+<div>
+  <div *ngIf="!mostrarBuques" class="center">
+    <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+    <h1>Cargando buques</h1>
+  </div>
+  <div class="" *ngIf="mostrarBuques">
+    <h2 class="center"> Usuarios</h2>
+    <br>
+    <table style="width:80%; text-align:center">
+      <tr>
+        <th>K_SIN </th>
+        <th>Q_MMSI </th>
+        <th>Q_IMO </th>
+        <th>N_NOMBRE </th>
+        <th>N_TIPO_BUQUE </th>
+        <th>N_TIPO_CAPACIDAD </th>
+        <th>V_CAPACIDAD </th>
+        <th>V_CALADO </th>
+        <th>F_LANZAMIENTO </th>
+        <th>O_RESTRICCIONES_NAVEGACION </th>
+        <th>ACCIONES </th>
+      </tr>
+      <tr *ngFor="let buque of buques">
+        <th>{{buque.K_SIN}} </th>
+        <th>{{buque.Q_MMSI}} </th>
+        <th>{{buque.Q_IMO}} </th>
+        <th>{{buque.N_NOMBRE}} </th>
+        <th>{{buque.N_TIPO_BUQUE}} </th>
+        <th>{{buque.N_TIPO_CAPACIDAD}} </th>
+        <th>{{buque.V_CAPACIDAD}} </th>
+        <th>{{buque.V_CALADO}} </th>
+        <th>{{buque.F_LANZAMIENTO}} </th>
+        <th>{{buque.O_RESTRICCIONES_NAVEGACION}} </th>
+        <th> 
+          <i (click)="borrarBuque(buque.K_SIN)" class="fa fa-trash fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Eliminar Buque"></i>
+        </th>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="col center">
+  <input (click)="formAgregarBuque=!formAgregarBuque" class="btn" type="submit" value="Crear Buque?" style="margin: auto">
+  <br>
+  <div *ngIf="formAgregarBuque">
+      <div *ngIf="!registrandoBuque">
+        <form (ngSubmit)="crearBuque()" #buqueForm="ngForm">
+            
+            <input [(ngModel)]="buque.K_SIN" name="nombre" class="txt" type="number" placeholder="Digite el SIN" required>
+            <input [(ngModel)]="buque.Q_MMSI" name="nombre" class="txt" type="number" placeholder="Digite el MMSI" required>
+            <input [(ngModel)]="buque.Q_IMO" name="nombre" class="txt" type="number" placeholder="Digite el IMO" required>
+            <input [(ngModel)]="buque.N_NOMBRE" name="nombre" class="txt" type="text" placeholder="Digite el NOMBRE" required>
+            <select [(ngModel)]="buque.N_TIPO_BUQUE" name="roleBuque" placeholder="Seleccione el tipo de buque" required> 
+              <option  value="SUPER">SUPER</option>
+              <option  value="REGULAR">REGULAR</option>
+              <option  value="NEOPANAMAX">NEOPANAMAX</option>
+            </select>
+            <br>
+            <br>
+            <select [(ngModel)]="buque.N_TIPO_CAPACIDAD" name="roleBuque" placeholder="Seleccione el tipo de carga del buque" required> 
+              <option  value="TON">TON</option>
+              <option  value="M3">M3</option>
+              <option  value="TEU">TEU</option>
+              <option  value="TON CP/SUAB">TON CP/SUAB</option>
+              <option  value="TTA">TTA</option>
+            </select>
+            <br>
+            <br>
+            <input [(ngModel)]="buque.V_CAPACIDAD" name="nombre" class="txt" type="number" placeholder="Digite la capacidad" required>
+            <input [(ngModel)]="buque.V_CALADO" name="nombre" class="txt" type="number" placeholder="Digite el calado" required>
+             <input [(ngModel)]="buque.F_LANZAMIENTO" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha de lanzamiento" required>
+             <input [(ngModel)]="buque.O_RESTRICCIONES_NAVEGACION" name="nombre" class="txt" type="text" placeholder="Digite las restricciones" required>
+
+            <input [disabled]="!buqueForm.form.valid" class="btn" type="submit" value="Crear Buque" style="margin: auto">
+        </form>
+      </div>
+      <div *ngIf="registrandoBuque">
+        <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+        <h1>Registrando Buque</h1>
+      </div>
+  </div>
+</div>
