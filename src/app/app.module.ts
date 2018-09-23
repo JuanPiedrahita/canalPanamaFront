@@ -16,6 +16,7 @@ import { OracleService } from './oracle.service';
 import { AddUserComponent } from './add-user/add-user.component';
 import { BuqueComponent } from './buque/buque.component';
 import { ClienteComponent } from './cliente/cliente.component';
+import { CupoComponent } from './cupo/cupo.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ClienteComponent } from './cliente/cliente.component';
     HomeComponent,
     AddUserComponent,
     BuqueComponent,
-    ClienteComponent
+    ClienteComponent,
+    CupoComponent
   ],
   imports: [
     BrowserModule,

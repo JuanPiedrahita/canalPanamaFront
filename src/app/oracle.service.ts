@@ -28,6 +28,9 @@ export class OracleService {
   Clientes: string = "cliente/all";
   newCliente:string= "cliente/new"; 
   deleteCliente:string="cliente/delete";
+  newCupo: string = "cupo/post";
+  updateCupo: string = "cupo/update";
+  cupos: string = "cupo/get";
 
   constructor(private http: Http) { }
 
@@ -112,6 +115,18 @@ export class OracleService {
   
   borrarCliente(K_CLIENTE:number){
     return this.oraclePost(this.deleteCliente,{"K_CLIENTE":K_CLIENTE})
+  }
+
+  getCupos(){
+    return this.oracleGet(this.cupos, null);
+  }
+
+  actualizarCupo(cupo: any){
+    return this.oraclePost(this.updateCupo,cupo);
+  }
+
+  insertCupo(cupo: any){
+    return this.oraclePost(this.newCupo,cupo);
   }
 
 }
