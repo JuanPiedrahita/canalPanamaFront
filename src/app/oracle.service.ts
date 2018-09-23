@@ -31,7 +31,11 @@ export class OracleService {
   newCupo: string = "cupo/post";
   updateCupo: string = "cupo/update";
   cupos: string = "cupo/get";
-  disponibilidad: string = "disponibilidad"
+  disponibilidad: string = "disponibilidad";
+  obtenerReservas: string = "reserva/all";
+  insertarReserva: string = "reserva/new";
+  eliminarReserva: string = "reserva/delete";
+  modificarReserva: string = "reserva/update";
 
   constructor(private http: Http) { }
 
@@ -132,6 +136,22 @@ export class OracleService {
 
   getDisponibilidad(tipoBuque: string, fecha: Date){
     return this.oracleGet(this.disponibilidad, {"tipoBuque":tipoBuque,"fecha":fecha});
+  }
+
+  getReservas(username: string){
+    return this.oracleGet(this.obtenerReservas,{"username":username});
+  };
+
+  postReserva(reserva: any){
+    return this.oraclePost(this.insertarReserva,reserva);
+  }
+
+  deleteReserva(k_numero: number,f_fecha: Date,tipoBuque:string){
+    return this.oraclePost(this.eliminarReserva, {"k_numero":k_numero,"f_fecha":f_fecha,"tipoBuque":tipoBuque});
+  }
+
+  updateReserva(reserva: any){
+    return this.oraclePost(this.modificarReserva,reserva);
   }
 
 }

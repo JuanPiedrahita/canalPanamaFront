@@ -39,7 +39,7 @@
   <br>
   <div *ngIf="formAgregarCupo">
       <div *ngIf="!registrandoCupo">
-        <form (ngSubmit)="crearCupo()" #buqueForm="ngForm">
+        <form (ngSubmit)="crearCupo()" #cupoForm="ngForm">
             
             <input [(ngModel)]="cupo.K_CUPOS" name="nombre" class="txt" type="number" placeholder="Digite el identificador" required>
             <input [(ngModel)]="cupo.F_CUPO" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha" required [min]="dateToday">

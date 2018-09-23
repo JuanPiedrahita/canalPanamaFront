@@ -7,6 +7,7 @@ import { BuqueComponent } from './buque/buque.component'
 import { ClienteComponent } from './cliente/cliente.component'
 import { CupoComponent } from './cupo/cupo.component'
 import { DisponibilidadComponent } from './disponibilidad/disponibilidad.component'
+import { ReservaComponent } from './reserva/reserva.component'
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'disponibilidad',
     component: DisponibilidadComponent
+  },
+  {
+    path: 'reserva',
+    component: ReservaComponent
   },
 ];
 
