@@ -14,6 +14,7 @@ export class CupoComponent implements OnInit {
   formAgregarCupo: boolean;
   cupos: any[];
   cupo: any;
+  dateToday: string  = new Date().toJSON().split('T')[0];
 
   constructor(private oracle: OracleService, private router: Router) { }
 

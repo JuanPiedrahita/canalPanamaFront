@@ -42,7 +42,7 @@
         <form (ngSubmit)="crearCupo()" #buqueForm="ngForm">
             
             <input [(ngModel)]="cupo.K_CUPOS" name="nombre" class="txt" type="number" placeholder="Digite el identificador" required>
-            <input [(ngModel)]="cupo.F_CUPO" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha" required>
+            <input [(ngModel)]="cupo.F_CUPO" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha" required [min]="dateToday">
             <input [(ngModel)]="cupo.Q_CUPOS_REGULAR" name="nombre" class="txt" type="number" placeholder="Digite el número de cupos regulares" required>
             <input [(ngModel)]="cupo.Q_CUPOS_NEOPANAMAX" name="nombre" class="txt" type="number" placeholder="Digite el número de cupos neopanamax" required>
             <input [(ngModel)]="cupo.Q_CUPOS_SUPER" name="nombre" class="txt" type="number" placeholder="Digite el número de cupos super" required>
