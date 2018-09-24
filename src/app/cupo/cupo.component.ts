@@ -12,8 +12,11 @@ export class CupoComponent implements OnInit {
   mostrarCupo: boolean;
   registrandoCupo: boolean;
   formAgregarCupo: boolean;
+  formModificarCupo: boolean;
+  modificandoCupo: boolean;
   cupos: any[];
   cupo: any;
+  cupoTemporal: any;
   dateToday: string  = new Date().toJSON().split('T')[0];
 
   constructor(private oracle: OracleService, private router: Router) { }
@@ -25,7 +28,10 @@ export class CupoComponent implements OnInit {
       this.mostrarCupo = false;
   	  this.formAgregarCupo = false;
   	  this.registrandoCupo = false;
+      this.formModificarCupo = false;
+      this.modificandoCupo = false;
   	  this.cupo = {};
+      this.cupoTemporal = {};
   	  this.cupos = [];
   	  this.oracle.getCupos()
   	  	.toPromise()
@@ -69,25 +75,43 @@ export class CupoComponent implements OnInit {
   }
 
   actualizarCupo(){
-    this.mostrarCupo = false;
-    this.oracle.actualizarCupo(this.cupo)
-      .toPromise()
-        .then((res:any) => {
-          console.log(res);
-          if(JSON.parse(res._body).clase == undefined){
-            //Si no hay error
-            this.mostrarCupo = true;
-            this.ngOnInit();
-          } else {
-            //Si hay error lo muestra
-            this.mostrarCupo = true;
-          }
-          alert(JSON.stringify(JSON.parse(res._body)));
-        })
-        .catch((error) => {
-          this.mostrarCupo = true;
-          alert(error)
-        }); 
+    if(this.cupoTemporal.Q_CUPOS_REGULAR >= this.cupoTemporal.disponiblesRegular
+        && this.cupoTemporal.Q_CUPOS_NEOPANAMAX >= this.cupoTemporal.disponiblesNeo
+        && this.cupoTemporal.Q_CUPOS_SUPER >= this.cupoTemporal.disponiblesSuper
+      ){
+      this.modificandoCupo = true;
+      this.cupoTemporal.Q_CUPOS_REGULAR_DISPONIBLES = this.cupoTemporal.Q_CUPOS_REGULAR - this.cupoTemporal.disponiblesRegular;
+      this.cupoTemporal.Q_CUPOS_NEOPANAMAX_DISPONIBLES = this.cupoTemporal.Q_CUPOS_NEOPANAMAX - this.cupoTemporal.disponiblesNeo;
+      this.cupoTemporal.Q_CUPOS_SUPER_DISPONIBLES = this.cupoTemporal.Q_CUPOS_SUPER - this.cupoTemporal.disponiblesSuper;
+      this.oracle.actualizarCupo(this.cupoTemporal)
+        .toPromise()
+          .then((res:any) => {
+            console.log(res);
+            if(JSON.parse(res._body).clase == undefined){
+              //Si no hay error
+              this.modificandoCupo = false;
+              this.ngOnInit();
+            } else {
+              //Si hay error lo muestra
+              this.modificandoCupo = false;
+            }
+            alert(JSON.stringify(JSON.parse(res._body)));
+          })
+          .catch((error) => {
+            this.modificandoCupo = false;
+            alert(error)
+          }); 
+    } else {
+      alert("el numero de cupos nuevo debe ser mayor al numero de cupos antiguo menos el ńúmero de disponibles");
+    }
+  }
+
+  editarCupo(cupoSeleccionado: any){
+    this.cupoTemporal = JSON.parse(JSON.stringify(cupoSeleccionado));
+    this.cupoTemporal.disponiblesRegular = this.cupoTemporal.Q_CUPOS_REGULAR - this.cupoTemporal.Q_CUPOS_REGULAR_DISPONIBLES; 
+    this.cupoTemporal.disponiblesNeo = this.cupoTemporal.Q_CUPOS_NEOPANAMAX - this.cupoTemporal.Q_CUPOS_NEOPANAMAX_DISPONIBLES; 
+    this.cupoTemporal.disponiblesSuper = this.cupoTemporal.Q_CUPOS_SUPER - this.cupoTemporal.Q_CUPOS_SUPER_DISPONIBLES; 
+    this.formModificarCupo = true;
   }
 
 }
