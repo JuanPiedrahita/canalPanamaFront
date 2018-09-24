@@ -1,0 +1,34 @@
+<div class="">
+  <div *ngIf="!mostrarReservas" class="center">
+    <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+    <h1>Cargando reservas</h1>
+  </div>
+  <div class="" *ngIf="mostrarReservas">
+    <h2 class="center"> Reservas</h2>
+    <br>
+    <table style="width:80%; text-align:center">
+      <tr>
+        <th>K_NUMERO </th>
+        <th>k_SIN </th>
+        <th>N_NOMBRE </th>
+        <th>N_TIPO_BUQUE </th>
+        <th>N_SENTIDO </th>
+        <th>F_FECHA </th>
+        <th>N_PUERTO_LLEGADA</th>
+        <th>N_PUERTO_SALIDA</th> 
+        <th>N_TIPO_CARGA</th> 
+      </tr>
+      <tr *ngFor="let reserva of reservas">
+        <th>{{reserva.K_NUMERO}} </th>
+        <th>{{reserva.K_SIN}} </th>
+        <th>{{reserva.N_NOMBRE}} </th>
+        <th>{{reserva.N_TIPO_BUQUE}} </th>
+        <th>{{reserva.N_SENTIDO}} </th>
+        <th>{{reserva.F_FECHA}} </th>
+        <th>{{reserva.N_PUERTO_LLEGADA}}</th>
+        <th>{{reserva.N_PUERTO_SALIDA}}</th> 
+        <th>{{reserva.N_TIPO_CARGA}}</th> 
+      </tr>
+    </table>
+  </div>
+</div>

@@ -19,6 +19,7 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { CupoComponent } from './cupo/cupo.component';
 import { DisponibilidadComponent } from './disponibilidad/disponibilidad.component';
 import { ReservaComponent } from './reserva/reserva.component';
+import { ProgramacionComponent } from './programacion/programacion.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ReservaComponent } from './reserva/reserva.component';
     ClienteComponent,
     CupoComponent,
     DisponibilidadComponent,
-    ReservaComponent
+    ReservaComponent,
+    ProgramacionComponent
   ],
   imports: [
     BrowserModule,

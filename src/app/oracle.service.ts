@@ -36,6 +36,7 @@ export class OracleService {
   insertarReserva: string = "reserva/new";
   eliminarReserva: string = "reserva/delete";
   modificarReserva: string = "reserva/update";
+  obtenerReservasPaso: string = "reserva/paso";
 
   constructor(private http: Http) { }
 
@@ -157,6 +158,10 @@ export class OracleService {
       "f_fecha_nueva":f_fecha_nueva,
       "tipoBuque":tipoBuque
     });
+  }
+
+  getReservasPaso(){
+    return this.oracleGet(this.obtenerReservasPaso,null);
   }
 
 }
