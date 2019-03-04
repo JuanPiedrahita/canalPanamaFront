@@ -25,12 +25,9 @@
         <th>{{buque.Q_MMSI}} </th>
         <th>{{buque.Q_IMO}} </th>
         <th>{{buque.N_NOMBRE}} </th>
-        <th>{{buque.N_TIPO_BUQUE}} </th>
-        <th>{{buque.N_TIPO_CAPACIDAD}} </th>
-        <th>{{buque.V_CAPACIDAD}} </th>
-        <th>{{buque.V_CALADO}} </th>
         <th>{{buque.F_LANZAMIENTO}} </th>
-        <th>{{buque.O_RESTRICCIONES_NAVEGACION}} </th>
+        <th>{{buque.N_TIPO_BUQUE}} </th>
+        <th>{{buque.CARACTERISTICAS}} </th>
         <th> 
           <i (click)="borrarBuque(buque.K_SIN)" class="fa fa-trash fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Eliminar Buque"></i>
         </th>
@@ -49,27 +46,12 @@
             <input [(ngModel)]="buque.Q_MMSI" name="nombre" class="txt" type="number" placeholder="Digite el MMSI" required>
             <input [(ngModel)]="buque.Q_IMO" name="nombre" class="txt" type="number" placeholder="Digite el IMO" required>
             <input [(ngModel)]="buque.N_NOMBRE" name="nombre" class="txt" type="text" placeholder="Digite el NOMBRE" required>
+            <input [(ngModel)]="buque.F_LANZAMIENTO" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha de lanzamiento" required>
             <select [(ngModel)]="buque.N_TIPO_BUQUE" name="roleBuque" placeholder="Seleccione el tipo de buque" required> 
-              <option  value="SUPER">SUPER</option>
-              <option  value="REGULAR">REGULAR</option>
-              <option  value="NEOPANAMAX">NEOPANAMAX</option>
+              <option  *ngFor="let tipoBuque of tiposBuque" [value]="tipoBuque.K_TIPO_BUQUE" [ngValue]="tipoBuque.K_TIPO_BUQUE">{{tipoBuque.N_NOMBRE}}</option>
             </select>
             <br>
-            <br>
-            <select [(ngModel)]="buque.N_TIPO_CAPACIDAD" name="roleBuque" placeholder="Seleccione el tipo de carga del buque" required> 
-              <option  value="TON">TON</option>
-              <option  value="M3">M3</option>
-              <option  value="TEU">TEU</option>
-              <option  value="TON CP/SUAB">TON CP/SUAB</option>
-              <option  value="TTA">TTA</option>
-            </select>
-            <br>
-            <br>
-            <input [(ngModel)]="buque.V_CAPACIDAD" name="nombre" class="txt" type="number" placeholder="Digite la capacidad" required>
-            <input [(ngModel)]="buque.V_CALADO" name="nombre" class="txt" type="number" placeholder="Digite el calado" required>
-             <input [(ngModel)]="buque.F_LANZAMIENTO" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha de lanzamiento" required>
-             <input [(ngModel)]="buque.O_RESTRICCIONES_NAVEGACION" name="nombre" class="txt" type="text" placeholder="Digite las restricciones" required>
-
+            
             <input [disabled]="!buqueForm.form.valid" class="btn" type="submit" value="Crear Buque" style="margin: auto">
         </form>
       </div>

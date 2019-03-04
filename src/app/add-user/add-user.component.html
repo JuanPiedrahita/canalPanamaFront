@@ -37,14 +37,10 @@
 
             <input [(ngModel)]="usuario.username" name="username" class="txt" placeholder="Digite el nombre de  usuario" required>
         
-            <input [(ngModel)]="usuario.password" name="password" class="txt" type="text" placeholder="Digite la contraseña" required>
-
             <select [(ngModel)]="usuario.role" name="rol" placeholder="Seleccione el rol" required> 
-              <option  value="R_AGENTE_BUQUE">R_AGENTE_BUQUE</option>
-              <option  value="R_ACP_PASO">R_ACP_PASO</option>
-              <option  value="R_ACP_RESERVA">R_ACP_RESERVA</option>
-              <option  value="R_ACP_ADMIN">R_ACP_ADMIN</option>
+              <option  *ngFor="let rol of roles" [value]="rol.Rol" [ngValue]="rol">{{rol.Rol}}</option>
             </select>
+
             <br> 
             <br>
             <select *ngIf="usuario.role=='R_AGENTE_BUQUE'" [(ngModel)]="usuario.roleBuque" name="roleBuque" placeholder="Seleccione el rol en el buque" required> 

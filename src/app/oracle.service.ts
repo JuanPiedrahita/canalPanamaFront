@@ -24,6 +24,7 @@ export class OracleService {
   deleteUser: string = "usuario/delete";
   buques: string = "buque/all";
   newBuque: string = "buque/new";
+  tipoBuque: string = "buque/tipo_buque";
   deleteBuque: string = "buque/delete";
   Clientes: string = "cliente/all";
   newCliente:string= "cliente/new"; 
@@ -37,6 +38,8 @@ export class OracleService {
   eliminarReserva: string = "reserva/delete";
   modificarReserva: string = "reserva/update";
   obtenerReservasPaso: string = "reserva/paso";
+  roles: string = "usuario/roles"; 
+
 
   constructor(private http: Http) { }
 
@@ -97,6 +100,10 @@ export class OracleService {
 
   getPermisos(username: string){
     return this.oracleGet(this.permisos,{"username":username});
+  }
+
+  getRoles(){
+    return this.oracleGet(this.roles, null);
   }
 
   getBuques(username: string){
@@ -162,6 +169,10 @@ export class OracleService {
 
   getReservasPaso(){
     return this.oracleGet(this.obtenerReservasPaso,null);
+  }
+
+  getTipoBuque(){
+    return this.oracleGet(this.tipoBuque,null);
   }
 
 }

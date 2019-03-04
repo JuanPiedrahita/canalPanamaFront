@@ -14,6 +14,7 @@ export class BuqueComponent implements OnInit {
   formAgregarBuque: boolean;
   buques: any[];
   buque: any;
+  tiposBuque: any[];
 
   constructor(private router: Router, private oracle:  OracleService) { }
 
@@ -25,6 +26,7 @@ export class BuqueComponent implements OnInit {
   	  this.formAgregarBuque = false;
   	  this.registrandoBuque = false;
   	  this.buque = {};
+      this.getTiposBuque();
   	  this.oracle.getBuques(localStorage.getItem("user"))
   	  	.toPromise()
   	  		.then((res: any) => {
@@ -43,6 +45,23 @@ export class BuqueComponent implements OnInit {
             	alert(error)
           	});
   	}
+  }
+
+  getTiposBuque(){
+    this.oracle.getTipoBuque()
+      .toPromise()
+        .then((res:any) => {
+          if(JSON.parse(res._body).clase == undefined){
+            //Si no hay error
+            this.tiposBuque = JSON.parse(res._body).response;
+          } else {
+            //Si hay error lo muestra
+            alert(JSON.stringify(JSON.parse(res._body)));
+          }
+        })
+        .catch((error) => {
+          alert(error)
+        }); 
   }
 
   crearBuque(){

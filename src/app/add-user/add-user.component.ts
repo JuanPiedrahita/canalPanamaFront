@@ -19,6 +19,7 @@ export class AddUserComponent implements OnInit {
   usuario : any;
   mostrarPermisos: boolean;
   cargandoPermisos: boolean;
+  roles: any[];
 
   constructor(private router:Router, private oracle: OracleService) { }
 
@@ -43,6 +44,7 @@ export class AddUserComponent implements OnInit {
         id:"",
         roleBuque:"",
       };
+      this.getRoles();
       this.oracle.getUsuarios()
         .toPromise()
           .then((res: any) => {
@@ -60,6 +62,23 @@ export class AddUserComponent implements OnInit {
             alert(error)
           });
      }
+  }
+
+  getRoles(){
+    this.oracle.getRoles()
+      .toPromise()
+        .then((res: any) => {
+          if(JSON.parse(res._body).clase == undefined){
+              //Si no hay error
+              this.roles = JSON.parse(res._body).response;
+            } else {
+              //Si hay error lo muestra
+              alert(JSON.stringify(JSON.parse(res._body)));
+            }
+        })
+        .catch((error) => {
+          alert(error);
+        });
   }
 
   crearUsuario(){
