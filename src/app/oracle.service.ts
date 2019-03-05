@@ -38,6 +38,8 @@ export class OracleService {
   eliminarReserva: string = "reserva/delete";
   modificarReserva: string = "reserva/update";
   obtenerReservasPaso: string = "reserva/paso";
+  puerto: string = "general/getPuerto";
+  tipoCarga: string = "general/getTipoCarga";
   roles: string = "usuario/roles"; 
 
 
@@ -173,6 +175,14 @@ export class OracleService {
 
   getTipoBuque(){
     return this.oracleGet(this.tipoBuque,null);
+  }
+
+  getPuertos(){
+    return this.oracleGet(this.puerto,null);
+  }
+
+  getTipoCarga(){
+    return this.oracleGet(this.tipoCarga,null);
   }
 
 }

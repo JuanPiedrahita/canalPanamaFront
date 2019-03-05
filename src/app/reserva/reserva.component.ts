@@ -19,6 +19,8 @@ export class ReservaComponent implements OnInit {
   verificandoNueva: boolean;
   reservas: any[];
   buques: any[];
+  puertos: any[];
+  tiposCarga: any[];
   reserva: any;
   cuposDisponibles: boolean;
   dateToday: string  = new Date().toJSON().split('T')[0];
@@ -42,54 +44,103 @@ export class ReservaComponent implements OnInit {
   	  this.reservas = [];
   	  this.reserva = {};
   	  this.reservaTemporal = {};
-  	  //Obtener reservas
-  	  this.oracle.getReservas(localStorage.getItem("user"))
-  	  	.toPromise()
-  	  		.then((resReservas: any) => {
-	            if(JSON.parse(resReservas._body).clase == undefined){
-	              //Si no hay error
-	              this.reservas = JSON.parse(resReservas._body).response;
-	              //Obtener buques
-			  	  this.oracle.getBuques(localStorage.getItem("user"))
-			  	  	.toPromise()
-			  	  		.then((resBuques: any) => {
-				            if(JSON.parse(resBuques._body).clase == undefined){
-				              //Si no hay error
-				              this.buques = JSON.parse(resBuques._body).response;
-				              this.mostrarReservas = true;
-				            } else {
-				              //Si hay error lo muestra
-				              this.mostrarReservas = true;
-				              alert(JSON.stringify(JSON.parse(resBuques._body)));
-				            }
-			          	})
-			  	  		.catch((error) => {
-			  	  			this.mostrarReservas = true;
-			            	alert(error)
-          				});	
-	            } else {
-	              //Si hay error lo muestra
-	              this.mostrarReservas = true;
-	              alert(JSON.stringify(JSON.parse(resReservas._body)));
-	            }
-          	})
-  	  		.catch((error) => {
-  	  			this.mostrarReservas = true;
-            	alert(error)
-          	});	
+  	  this.obtenerBuques();
+      this.obtenerReservas();
+      this.obtenerTipoCarga();
+      this.obtenerPuertos();
   	}
+  }
+
+  obtenerReservas(){
+    //Obtener reservas
+      this.oracle.getReservas(localStorage.getItem("user"))
+        .toPromise()
+          .then((resReservas: any) => {
+              if(JSON.parse(resReservas._body).clase == undefined){
+                //Si no hay error
+                this.reservas = JSON.parse(resReservas._body).response;
+                
+              } else {
+                //Si hay error lo muestra
+                this.mostrarReservas = true;
+                alert(JSON.stringify(JSON.parse(resReservas._body)));
+              }
+            })
+          .catch((error) => {
+            this.mostrarReservas = true;
+              alert(error)
+            });  
+  }
+
+  obtenerTipoCarga(){
+    //Obtener buques
+    this.oracle.getTipoCarga()
+      .toPromise()
+        .then((res: any) => {
+            if(JSON.parse(res._body).clase == undefined){
+              //Si no hay error
+              this.tiposCarga = JSON.parse(res._body).response;
+            } else {
+              //Si hay error lo muestra
+              alert(JSON.stringify(JSON.parse(res._body)));
+            }
+          })
+        .catch((error) => {
+          this.mostrarReservas = true;
+            alert(error)
+          });  
+  }
+
+  obtenerPuertos(){
+    //Obtener buques
+    this.oracle.getPuertos()
+      .toPromise()
+        .then((res: any) => {
+            if(JSON.parse(res._body).clase == undefined){
+              //Si no hay error
+              this.puertos = JSON.parse(res._body).response;
+            } else {
+              //Si hay error lo muestra
+              alert(JSON.stringify(JSON.parse(res._body)));
+            }
+          })
+        .catch((error) => {
+          this.mostrarReservas = true;
+            alert(error)
+          });  
+  }
+
+  obtenerBuques(){
+    //Obtener buques
+    this.oracle.getBuques(localStorage.getItem("user"))
+      .toPromise()
+        .then((resBuques: any) => {
+            if(JSON.parse(resBuques._body).clase == undefined){
+              //Si no hay error
+              this.buques = JSON.parse(resBuques._body).response;
+              this.mostrarReservas = true;
+            } else {
+              //Si hay error lo muestra
+              this.mostrarReservas = true;
+              alert(JSON.stringify(JSON.parse(resBuques._body)));
+            }
+          })
+        .catch((error) => {
+          this.mostrarReservas = true;
+            alert(error)
+          });  
   }
 
   verificarDisponibilidad(){
   	this.verificando = true;
-    this.oracle.getDisponibilidad(this.reserva.buque.N_TIPO_BUQUE,this.reserva.F_FECHA)
+    this.oracle.getDisponibilidad(this.reserva.buque.K_TIPO_BUQUE,this.reserva.F_RESERVA)
       .toPromise()
         .then((res:any) => {
           console.log(res);
           if(JSON.parse(res._body).clase == undefined){
             //Si no hay error
             this.verificando = false;
-            this.cuposDisponibles = JSON.parse(res._body).disponibles>0;
+            this.cuposDisponibles = JSON.parse(res._body).CuposDisponibles>0;
             alert(JSON.stringify(JSON.parse(res._body)));
           } else {
             //Si hay error lo muestra
@@ -132,7 +183,7 @@ export class ReservaComponent implements OnInit {
 
   crearReserva(){
   	this.reserva.K_BUQUE = this.reserva.buque.K_SIN;
-  	this.reserva.tipoBuque = this.reserva.buque.N_TIPO_BUQUE;
+  	this.reserva.K_TIPO_BUQUE = this.reserva.buque.K_TIPO_BUQUE;
   	this.registrandoReserva = true;
   	this.oracle.postReserva(this.reserva)
 	  	.toPromise()
