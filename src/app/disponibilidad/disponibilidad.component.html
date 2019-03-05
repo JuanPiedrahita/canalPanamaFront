@@ -8,7 +8,7 @@
 		    <form (ngSubmit)="verificarDisponibilidad()" #disponibilidadForm="ngForm">	        
 		        <input [(ngModel)]="fecha" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha de consulta" required >
 		        <select [(ngModel)]="tipoBuque" name="buque" placeholder="Seleccione el buque" required> 
-		          <option  *ngFor="let buque of buques" [value]="buque.N_TIPO_BUQUE"> Buque {{buque.N_TIPO_BUQUE}}: {{buque.K_SIN}}-{{buque.N_NOMBRE}}</option>
+		          <option  *ngFor="let buque of buques" [value]="buque.K_TIPO_BUQUE"> Buque {{buque.N_TIPO_BUQUE}}: {{buque.K_SIN}}-{{buque.N_NOMBRE}}</option>
 		        </select>
 		        <br>
 		        <br>		        

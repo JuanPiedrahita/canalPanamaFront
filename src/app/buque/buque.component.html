@@ -4,20 +4,17 @@
     <h1>Cargando buques</h1>
   </div>
   <div class="" *ngIf="mostrarBuques">
-    <h2 class="center"> Usuarios</h2>
+    <h2 class="center"> Buques</h2>
     <br>
-    <table style="width:80%; text-align:center">
+    <table style="width:100%; text-align:center">
       <tr>
         <th>K_SIN </th>
         <th>Q_MMSI </th>
         <th>Q_IMO </th>
         <th>N_NOMBRE </th>
         <th>N_TIPO_BUQUE </th>
-        <th>N_TIPO_CAPACIDAD </th>
-        <th>V_CAPACIDAD </th>
-        <th>V_CALADO </th>
         <th>F_LANZAMIENTO </th>
-        <th>RESTRICCIONES </th>
+        <th>CARACTERISTICAS </th>
         <th>ACCIONES </th>
       </tr>
       <tr *ngFor="let buque of buques">
@@ -25,8 +22,8 @@
         <th>{{buque.Q_MMSI}} </th>
         <th>{{buque.Q_IMO}} </th>
         <th>{{buque.N_NOMBRE}} </th>
-        <th>{{buque.F_LANZAMIENTO}} </th>
         <th>{{buque.N_TIPO_BUQUE}} </th>
+        <th>{{buque.F_LANZAMIENTO}} </th>
         <th>{{buque.CARACTERISTICAS}} </th>
         <th> 
           <i (click)="borrarBuque(buque.K_SIN)" class="fa fa-trash fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Eliminar Buque"></i>
@@ -35,6 +32,7 @@
     </table>
   </div>
 </div>
+<br>
 <div class="col center">
   <input (click)="formAgregarBuque=!formAgregarBuque" class="btn" type="submit" value="Crear Buque?" style="margin: auto">
   <br>
@@ -47,11 +45,13 @@
             <input [(ngModel)]="buque.Q_IMO" name="nombre" class="txt" type="number" placeholder="Digite el IMO" required>
             <input [(ngModel)]="buque.N_NOMBRE" name="nombre" class="txt" type="text" placeholder="Digite el NOMBRE" required>
             <input [(ngModel)]="buque.F_LANZAMIENTO" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha de lanzamiento" required>
-            <select [(ngModel)]="buque.N_TIPO_BUQUE" name="roleBuque" placeholder="Seleccione el tipo de buque" required> 
-              <option  *ngFor="let tipoBuque of tiposBuque" [value]="tipoBuque.K_TIPO_BUQUE" [ngValue]="tipoBuque.K_TIPO_BUQUE">{{tipoBuque.N_NOMBRE}}</option>
+            <select [(ngModel)]="buque.K_TIPO_BUQUE" name="roleBuque" placeholder="Seleccione el tipo de buque" required> 
+              <option  *ngFor="let tipoBuque of tiposBuque" [ngValue]="tipoBuque.K_TIPO_BUQUE">{{tipoBuque.N_NOMBRE}}</option>
             </select>
             <br>
-            
+            <br>
+            <input [(ngModel)]="buque.BEAM" name="nombre" class="txt" type="number" placeholder="Digite el BEAM" required>
+            <input [(ngModel)]="buque.LOA" name="nombre" class="txt" type="number" placeholder="Digite el LOA" required>
             <input [disabled]="!buqueForm.form.valid" class="btn" type="submit" value="Crear Buque" style="margin: auto">
         </form>
       </div>

@@ -6,27 +6,21 @@
   <div class="" *ngIf="mostrarCupo">
     <h2 class="center"> Cupos</h2>
     <br>
-    <table style="width:80%; text-align:center">
+    <table style="width:100%; text-align:center">
       <tr>
         <th>K_CUPOS </th>
         <th>F_CUPO</th>
-        <th>Q_CUPOS_REGULAR </th>
-        <th>DISPONIBLES</th>
-        <th>Q_CUPOS_SUPER </th>
-        <th>DISPONIBLES </th>
-        <th>Q_CUPOS_NEOPANAMAX </th>
-        <th>DISPONIBLES </th>
+        <th>N_TIPO_BUQUE </th>
+        <th>Q_CUPOS</th>
+        <th>Q_CUPOS_DISPONIBLES </th>
         <th>ACCIONES</th>
       </tr>
       <tr *ngFor="let cupo of cupos">
         <th>{{cupo.K_CUPOS}} </th>
         <th>{{cupo.F_CUPO}}</th>
-        <th>{{cupo.Q_CUPOS_REGULAR}} </th>
-        <th>{{cupo.Q_CUPOS_REGULAR_DISPONIBLES}}</th>
-        <th>{{cupo.Q_CUPOS_SUPER}} </th>
-        <th>{{cupo.Q_CUPOS_SUPER_DISPONIBLES}} </th>
-        <th>{{cupo.Q_CUPOS_NEOPANAMAX}} </th>
-        <th>{{cupo.Q_CUPOS_NEOPANAMAX_DISPONIBLES}} </th>
+        <th>{{cupo.N_TIPO_BUQUE}} </th>
+        <th>{{cupo.Q_CUPOS}}</th>
+        <th>{{cupo.Q_CUPOS_DISPONIBLES}} </th>
         <th> 
           <i (click)="editarCupo(cupo)" class="fa fa-pencil fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Editar Cupo"></i>
         </th>
@@ -34,6 +28,7 @@
     </table>
   </div>
 </div>
+<br>
 <div class="col center">
   <input (click)="formAgregarCupo=!formAgregarCupo" class="btn" type="submit" value="Crear Cupo?" style="margin: auto">
   <br>
@@ -43,10 +38,12 @@
             
             <input [(ngModel)]="cupo.K_CUPOS" name="nombre" class="txt" type="number" placeholder="Digite el identificador" required>
             <input [(ngModel)]="cupo.F_CUPO" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha" required [min]="dateToday">
-            <input [(ngModel)]="cupo.Q_CUPOS_REGULAR" name="nombre" class="txt" type="number" placeholder="Digite el número de cupos regulares" required>
-            <input [(ngModel)]="cupo.Q_CUPOS_NEOPANAMAX" name="nombre" class="txt" type="number" placeholder="Digite el número de cupos neopanamax" required>
-            <input [(ngModel)]="cupo.Q_CUPOS_SUPER" name="nombre" class="txt" type="number" placeholder="Digite el número de cupos super" required>
-            
+            <select [(ngModel)]="cupo.K_TIPO_BUQUE" name="roleBuque" placeholder="Seleccione el tipo de buque" required> 
+              <option  *ngFor="let tipoBuque of tiposBuque" [ngValue]="tipoBuque.K_TIPO_BUQUE">{{tipoBuque.N_NOMBRE}}</option>
+            </select>
+            <br>
+            <br>
+            <input [(ngModel)]="cupo.Q_CUPOS" name="nombre" class="txt" type="number" placeholder="Digite el número de cupos" required>            
             <input [disabled]="!cupoForm.form.valid" class="btn" type="submit" value="Crear Cupo" style="margin: auto">
         </form>
       </div>
@@ -64,9 +61,10 @@
         <form (ngSubmit)="actualizarCupo()" #cupoEditForm="ngForm">
             
             <input [(ngModel)]="cupoTemporal.K_CUPOS" name="t_id" class="txt" type="number" placeholder="Digite el identificador" required disabled="false" >
-            <input [(ngModel)]="cupoTemporal.Q_CUPOS_REGULAR" name="regular" #regular="ngModel" class="txt" type="number" placeholder="Digite el número de cupos regulares" required [min]="cupoTemporal.disponiblesRegular">
-            <input [(ngModel)]="cupoTemporal.Q_CUPOS_NEOPANAMAX" name="neo" #neo="ngModel" class="txt" type="number" placeholder="Digite el número de cupos neopanamax" required  [min]="cupoTemporal.disponiblesNeo">
-            <input [(ngModel)]="cupoTemporal.Q_CUPOS_SUPER" name="super" #super="ngModel" class="txt" type="number" placeholder="Digite el número de cupos super" required  [min]="cupoTemporal.disponiblesSuper">
+
+             <input [(ngModel)]="cupoTemporal.N_TIPO_BUQUE" name="t_id" class="txt" type="text" placeholder="Seleccione" required disabled="false" >
+
+            <input [(ngModel)]="cupoTemporal.Q_CUPOS" name="regular" #regular="ngModel" class="txt" type="number" placeholder="Digite el número de cupos" required [min]="cupoTemporal.disponiblesRegular">
             
             <input [disabled]="!cupoEditForm.form.valid" class="btn" type="submit" value="Actualizar Cupo" style="margin: auto">
         </form>
