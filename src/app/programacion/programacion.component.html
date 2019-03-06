@@ -6,28 +6,30 @@
   <div class="" *ngIf="mostrarReservas">
     <h2 class="center"> Reservas</h2>
     <br>
-    <table style="width:80%; text-align:center">
+    <table style="width:100%; text-align:center">
       <tr>
-        <th>K_NUMERO </th>
+        <th>ID </th>
         <th>k_SIN </th>
-        <th>N_NOMBRE </th>
+        <th>N_NOMBRE_BUQUE </th>
         <th>N_TIPO_BUQUE </th>
         <th>N_SENTIDO </th>
-        <th>F_FECHA </th>
-        <th>N_PUERTO_LLEGADA</th>
-        <th>N_PUERTO_SALIDA</th> 
-        <th>N_TIPO_CARGA</th> 
+        <th>F_RESERVA </th>
+        <th>PUERTOS</th>
+        <th>I_ESTADO</th>
+        <th>V_RESERVA</th>
+        <th>N_RESTRICCIONES</th>
       </tr>
       <tr *ngFor="let reserva of reservas">
-        <th>{{reserva.K_NUMERO}} </th>
+        <th>{{reserva.K_NUMERO_RESERVA}} </th>
         <th>{{reserva.K_SIN}} </th>
-        <th>{{reserva.N_NOMBRE}} </th>
+        <th>{{reserva.N_NOMBRE_BUQUE}} </th>
         <th>{{reserva.N_TIPO_BUQUE}} </th>
         <th>{{reserva.N_SENTIDO}} </th>
-        <th>{{reserva.F_FECHA}} </th>
-        <th>{{reserva.N_PUERTO_LLEGADA}}</th>
-        <th>{{reserva.N_PUERTO_SALIDA}}</th> 
-        <th>{{reserva.N_TIPO_CARGA}}</th> 
+        <th>{{reserva.F_RESERVA}} </th>
+        <th>{{reserva.N_PUERTO_SALIDA}} -> {{reserva.N_PUERTO_LLEGADA}}</th>
+        <th>{{reserva.I_ESTADO}}</th>
+        <th>{{reserva.V_RESERVA}}</th>
+        <th>{{reserva.N_RESTRICCIONES}}</th> 
       </tr>
     </table>
   </div>

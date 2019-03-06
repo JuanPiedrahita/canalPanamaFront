@@ -156,8 +156,8 @@ export class OracleService {
     return this.oraclePost(this.insertarReserva,reserva);
   }
 
-  deleteReserva(k_numero: number,f_fecha: Date,tipoBuque:string){
-    return this.oraclePost(this.eliminarReserva, {"k_numero":k_numero,"f_fecha":f_fecha,"tipoBuque":tipoBuque});
+  deleteReserva(reserva: any){
+    return this.oraclePost(this.eliminarReserva, reserva);
   }
 
   updateReserva(k_numero: number, f_fecha_antigua: Date, f_fecha_nueva: Date,tipoBuque:string){

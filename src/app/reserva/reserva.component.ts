@@ -205,52 +205,56 @@ export class ReservaComponent implements OnInit {
   	}
 
 	eliminarReserva(reserva: any){
-  	this.mostrarReservas = false;
-  	this.oracle.deleteReserva(reserva.K_NUMERO,reserva.F_FECHA,reserva.N_TIPO_BUQUE)
+  	if( reserva.I_ESTADO == "C" || reserva.I_ESTADO == "P" ){
+      alert("El estado de la reserva no permite cancelar la");
+    } else {
+      this.mostrarReservas = false;
+        this.oracle.deleteReserva(reserva)
+          .toPromise()
+              .then((res:any) => {
+                if(JSON.parse(res._body).clase == undefined){
+                  //Si no hay error
+                  this.mostrarReservas = true;
+                  this.ngOnInit();
+                } else {
+                  //Si hay error lo muestra
+                  this.mostrarReservas = true;
+                }
+                alert(JSON.stringify(JSON.parse(res._body)));
+              })
+              .catch((error) => {
+                this.mostrarReservas = true;
+                alert(error)
+              });  
+    }
+	}  
+
+	editarReserva(reserva: any){
+		this.reservaTemporal = reserva;
+		this.permitirEditarReserva = true;
+	}
+
+	actualizarReserva(){
+		this.editandoReserva = true;
+		this.oracle.updateReserva(this.reservaTemporal.K_NUMERO,this.reservaTemporal.F_FECHA
+			,this.reservaTemporal.F_FECHA_NUEVA,this.reservaTemporal.N_TIPO_BUQUE)
 	  	.toPromise()
 	        .then((res:any) => {
 	          if(JSON.parse(res._body).clase == undefined){
 	            //Si no hay error
-	            this.mostrarReservas = true;
+	            this.editandoReserva = false;
 	            this.ngOnInit();
 	          } else {
 	            //Si hay error lo muestra
-	            this.mostrarReservas = true;
+	            this.editandoReserva = false;
 	          }
 	          alert(JSON.stringify(JSON.parse(res._body)));
 	        })
 	        .catch((error) => {
-	          this.mostrarReservas = true;
+	          this.editandoReserva = false;
 	          alert(error)
-	        });  
-  	}  
-
-  	editarReserva(reserva: any){
-  		this.reservaTemporal = reserva;
-  		this.permitirEditarReserva = true;
-  	}
-
-  	actualizarReserva(){
-  		this.editandoReserva = true;
-  		this.oracle.updateReserva(this.reservaTemporal.K_NUMERO,this.reservaTemporal.F_FECHA
-  			,this.reservaTemporal.F_FECHA_NUEVA,this.reservaTemporal.N_TIPO_BUQUE)
-		  	.toPromise()
-		        .then((res:any) => {
-		          if(JSON.parse(res._body).clase == undefined){
-		            //Si no hay error
-		            this.editandoReserva = false;
-		            this.ngOnInit();
-		          } else {
-		            //Si hay error lo muestra
-		            this.editandoReserva = false;
-		          }
-		          alert(JSON.stringify(JSON.parse(res._body)));
-		        })
-		        .catch((error) => {
-		          this.editandoReserva = false;
-		          alert(error)
-		        }); 
-  	}
+	        }); 
+	}
 
   	
 }

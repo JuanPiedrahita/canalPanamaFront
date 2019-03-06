@@ -15,7 +15,6 @@
         <th>N_SENTIDO </th>
         <th>F_RESERVA </th>
         <th>PUERTOS</th>
-        <th>N_TIPO_CARGA</th> 
         <th>I_ESTADO</th>
         <th>V_RESERVA</th>
         <th>N_RESTRICCIONES</th>
@@ -29,7 +28,6 @@
         <th>{{reserva.N_SENTIDO}} </th>
         <th>{{reserva.F_RESERVA}} </th>
         <th>{{reserva.N_PUERTO_SALIDA}} -> {{reserva.N_PUERTO_LLEGADA}}</th>
-        <th>{{reserva.N_TIPO_CARGA}}</th>
         <th>{{reserva.I_ESTADO}}</th>
         <th>{{reserva.V_RESERVA}}</th>
         <th>{{reserva.N_RESTRICCIONES}}</th> 
@@ -41,6 +39,7 @@
     </table>
   </div>
 </div>
+<br>
 <div class="col center">
   <input (click)="formAgregarReserva=!formAgregarReserva" class="btn" type="submit" value="Crear Reserva?" style="margin: auto">
   <br>
@@ -74,11 +73,6 @@
               <br>
               <select [(ngModel)]="reserva.K_PUERTO_SALIDA" name="nombre" placeholder="Seleccione el puerto de salida" required>
                 <option  *ngFor="let puerto of puertos" [ngValue]="puerto.K_PUERTO"> {{puerto.N_NOMBRE}}</option>
-              </select>
-              <br>
-              <br>
-              <select [(ngModel)]="reserva.K_TIPO_CARGA" name="nombre" placeholder="Seleccione el puerto de salida" required>
-                <option  *ngFor="let tipoCarga of tiposCarga" [ngValue]="tipoCarga.K_TIPO_CARGA"> {{tipoCarga.N_DESCRIPCION}}</option>
               </select>
 	            <br>
 	            <br>
