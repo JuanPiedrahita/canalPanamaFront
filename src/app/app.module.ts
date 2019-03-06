@@ -20,6 +20,7 @@ import { CupoComponent } from './cupo/cupo.component';
 import { DisponibilidadComponent } from './disponibilidad/disponibilidad.component';
 import { ReservaComponent } from './reserva/reserva.component';
 import { ProgramacionComponent } from './programacion/programacion.component';
+import { SubastaComponent } from './subasta/subasta.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ProgramacionComponent } from './programacion/programacion.component';
     CupoComponent,
     DisponibilidadComponent,
     ReservaComponent,
-    ProgramacionComponent
+    ProgramacionComponent,
+    SubastaComponent
   ],
   imports: [
     BrowserModule,

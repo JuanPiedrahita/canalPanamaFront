@@ -41,6 +41,10 @@ export class OracleService {
   puerto: string = "general/getPuerto";
   tipoCarga: string = "general/getTipoCarga";
   roles: string = "usuario/roles"; 
+  subasta: string = "subasta/allSubastas";
+  pujar: string = "subasta/pujar";
+  closeSubasta: string = "subasta/cerrar";
+  pujas: string = "subasta/allPujas";
 
 
   constructor(private http: Http) { }
@@ -184,5 +188,22 @@ export class OracleService {
   getTipoCarga(){
     return this.oracleGet(this.tipoCarga,null);
   }
+
+  getSubastas(){
+    return this.oracleGet(this.subasta,null);
+  };
+
+  getPujas(subasta:any){
+    return this.oracleGet(this.pujas,subasta);
+  };
+
+  postPuja(puja: any){
+    return this.oraclePost(this.pujar,puja);
+  }
+
+  cerrarSubasta(subasta: any){
+    return this.oraclePost(this.closeSubasta,subasta);
+  }
+
 
 }
