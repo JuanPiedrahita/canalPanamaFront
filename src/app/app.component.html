@@ -1,13 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Bienvenido a Aplicación de gestión de reserva y paso del canal de Panamá
-  </h1>
-</div>
-
+<!--<div class="header_class">-->
+  <div class="home_class">
+    <h1  class="etiqueta_class">
+      <!--Bienvenido a Aplicación de gestión de reserva y paso del canal de Panamá-->
+    </h1>
+    <header class="header_class" > 
+        <div class="logo_class">
+        </div>
+        <div class="titulo_class" >
+            <p >
+                Aplicación de gestión de reserva y paso del canal de Panamá
+            </p>
+        </div>
+    </header>
 <ul class="menu" *ngIf="logged">
   <li>
-    <a routerLink="home"> Home </a>
+    <a routerLink="home" > Home </a>
   </li>
   <li>
     <a routerLink="addUser">Usuarios</a>
@@ -35,6 +43,7 @@
   </li>
 </ul>
 
+<div class="footer_class" *ngIf=!logged>
 <div class="center" *ngIf="!logged">
   <form>
     <input [(ngModel)]="user.name" name="nombre" class="txt" placeholder="Digite su usuario">
@@ -44,6 +53,7 @@
     <input (click)="login()" class="btn" type="submit" value="Ingresar" style="margin: auto">
   </form>
 </div>
+</div>
 <br>
 
 <router-outlet></router-outlet>
@@ -52,4 +62,5 @@
   <form>
     <input (click)="logout()" class="btn" type="submit" value="Salir" style="margin: auto">
   </form>
+</div>
 </div>

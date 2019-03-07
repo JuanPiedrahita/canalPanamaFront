@@ -1,38 +1,106 @@
+
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,700');
 
-body {
-    background: #323232;
+.bodyIndex_class {
+    background-image:url('http://www.buques.unam.mx/wp-content/uploads/2017/07/JustoSierra-e1506959959103.jpg');
+    background-size: 100%;
     padding: 3em;
     font-family: 'Raleway', 'Arial';
-    color: #FFF;
+    background-color: aliceblue;
+}
+
+.header_class{
+  background-position: left;
+  background-color: aliceblue;
+  height: 150px;
+  width: 100%;
+}
+.footer_class{
+  height: 400px;
+  background-size: 100%;
+  padding: 3em;
+  background-image: url('http://www.buques.unam.mx/wp-content/uploads/2017/07/JustoSierra-e1506959959103.jpg');
+}
+
+.titulo_class>p {
+	text-transform: uppercase;
+	letter-spacing: .5em;
+	display: inline-block;
+  //border: 4px double rgba(190, 152, 152, 0.25);
+	//border-width: 4px 0;
+	padding: 1.5em 0em;
+  //position: absolute; 
+  font-size: 20px;
+}
+
+.logo_class{
+  background-image:url('https://upload.wikimedia.org/wikipedia/commons/e/e1/Autoridad_del_Canal_de_Panama_-_LOGOTIPO_-_2016.png');
+  background-repeat:no-repeat;
+  background-size: 85%;
+  height: 93%;
+  float: left;
+  width: 27%;
+}
+
+.titulo_class{
+  height: 100%;
+  width: 70%;
+  float:left;
+  text-align: center;
 }
 
 ul {
     list-style-type: none;
-    margin: 0 0 2em 0;
-    padding: 0;
+    //margin: 0 0 2em 0;
+    
+    margin: 0;
+    padding: 1em;
+    overflow: hidden;
+    background-color: aliceblue;
+    
 }
 
 ul li {
     display: inline;
-    margin-right: 1.5em;
+    //margin-right: 0.5em;
+    //vertical-align: center;
+     
+
 }
 
 ul li a {
-    font-size: 1.5em;
+font-family: Arial;
+ font-size: 14px;
+ text-decoration: none;
+ float: initial;
+ padding: 1em;
+ color: black;
+ border-bottom-color: black;
+ transition: all .3s ease-in-out;
+ 
+ //display: block;
 }
 
+ul li a:hover {
+  background-color:rgb(97, 170, 216);
+  margin-top: -2;
+  padding-bottom: 20px;
+}
+
+
+
 a {
-    color: #FFF;
+  color:black;
     text-decoration: none;
 }
 
 .menu {
     text-align: center;
-    font-size: 22px;
-    font-weight: bold;
+    //font-size: 12px;
+    //font-weight: bold;
+    //padding-top: 2mm;
 }
 
 .container {
@@ -57,11 +125,16 @@ input.txt {
     padding: 1em;
     width:  100%;
     margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #39c;
 }
 
 .center {
+    padding-top: 1cm;
     text-align: center;
     margin: auto;
+    font-size: large;
     width: 30%;
 }
 
@@ -70,14 +143,24 @@ input.txt {
 }
 
 input.btn {
-    border: 0;
-    display:  block;
-    padding: 1em 3em;
-    background: #57B3F1;
-    color: #003A61;
-    margin-bottom: 1em;
-    cursor: pointer;
+  color: #fff !important;
+  text-transform: uppercase;
+  background: #39c;
+  padding: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
 }
+
+input.btn:hover {
+  background: #7e96ca;
+  letter-spacing: 1px;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0s;
+}
+
 
 .life-container {
     background: #3FA0E1;
@@ -88,6 +171,17 @@ input.btn {
 
 table, th, td {
   border: 1px solid black;
+  font-size: 14px;
+  margin: auto;
+  
+}
+caption {
+   padding: 0.3em;
+   color: #fff;
+    background: #000;
+}
+th {
+   background: #eee;
 }
 
 

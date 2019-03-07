@@ -1,0 +1,52 @@
+APP
+-Generacion de contraeña automatica
+-Roles dinamicos consultados desde la base 
+-Simplificar consulta de roles
+-Subasta
+-Pagos de reserva
+-Mejorar diseño de la aplicacion (colores)
+-pedirle a carlos que se calle la puta boca en la sustentacion o en dicho caso que se salga del puto salon
+
+Base de datos: Tablas
+-Organizar las flechas del modelo para que queden angulares
+-Nombres de las fechas
+
+Tabla Buque:
+-Incluir beam y loa en el buque para calculo de la tarifa
+-Tipo de barco en otra tabla
+-Restricciones en el paso, no es condicion del buque, caracteristica de la reserva
+-Variables que se usan para la tarifa del peaje, sacarlas a nuevas tablas para facilitar los calculos
+
+Tabla Reserva:
+-Tipo de carga sacar la tabla, para parametrizarlo, deberia ser una llave foranea
+-F_Reserva = F_Fecha
+-Incluir la fecha en la que se hace la reserva
+-Atributo Puertos tabla aparte
+-Agregar atributo estado de la reserva
+-Valor de la reserva (ver si es tabla o atributo)
+-Informacion de pago
+
+Tabla Tarifa_peaje:
+-Tipo buque debe ser llave foranea
+-Revisar la tabla
+-Tipo carga sacarlo a otra tabla
+
+Tabla paso:
+-Incluir el valor del paso
+-Relacion de reserva a paso (No obliatoria)
+-Nombres de las fechas
+
+Tabla pago:
+-Almacenar la informacion de los pagos realizados
+
+Crear tabla de rompimiento para que no toque dejar los cupos explicitos.
+
+Agregar trigger para el valor maximo de los cupos
+
+Implementar periodos, cuando se hace la reserva, para calcular el valor de la cancelacion
+
+Triger con select para hacer los cambios
+
+Seguridad:
+-Agregar al admin permisos para quitar privilegios sobre usuarios
+
