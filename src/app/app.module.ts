@@ -20,6 +20,9 @@ import { CupoComponent } from './cupo/cupo.component';
 import { DisponibilidadComponent } from './disponibilidad/disponibilidad.component';
 import { ReservaComponent } from './reserva/reserva.component';
 import { ProgramacionComponent } from './programacion/programacion.component';
+import { SubastaComponent } from './subasta/subasta.component';
+import { PasoComponent } from './paso/paso.component';
+import { PagoComponent } from './pago/pago.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { ProgramacionComponent } from './programacion/programacion.component';
     CupoComponent,
     DisponibilidadComponent,
     ReservaComponent,
-    ProgramacionComponent
+    ProgramacionComponent,
+    SubastaComponent,
+    PasoComponent,
+    PagoComponent
   ],
   imports: [
     BrowserModule,

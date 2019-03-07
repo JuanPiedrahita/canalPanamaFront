@@ -18,6 +18,7 @@ export class CupoComponent implements OnInit {
   cupo: any;
   cupoTemporal: any;
   dateToday: string  = new Date().toJSON().split('T')[0];
+  tiposBuque: any[];
 
   constructor(private oracle: OracleService, private router: Router) { }
 
@@ -33,6 +34,7 @@ export class CupoComponent implements OnInit {
   	  this.cupo = {};
       this.cupoTemporal = {};
   	  this.cupos = [];
+      this.getTiposBuque();
   	  this.oracle.getCupos()
   	  	.toPromise()
   	  		.then((res: any) => {
@@ -51,6 +53,23 @@ export class CupoComponent implements OnInit {
             	alert(error)
           	});
     }
+  }
+
+  getTiposBuque(){
+    this.oracle.getTipoBuque()
+      .toPromise()
+        .then((res:any) => {
+          if(JSON.parse(res._body).clase == undefined){
+            //Si no hay error
+            this.tiposBuque = JSON.parse(res._body).response;
+          } else {
+            //Si hay error lo muestra
+            alert(JSON.stringify(JSON.parse(res._body)));
+          }
+        })
+        .catch((error) => {
+          alert(error)
+        }); 
   }
 
   crearCupo(){
@@ -75,14 +94,9 @@ export class CupoComponent implements OnInit {
   }
 
   actualizarCupo(){
-    if(this.cupoTemporal.Q_CUPOS_REGULAR >= this.cupoTemporal.disponiblesRegular
-        && this.cupoTemporal.Q_CUPOS_NEOPANAMAX >= this.cupoTemporal.disponiblesNeo
-        && this.cupoTemporal.Q_CUPOS_SUPER >= this.cupoTemporal.disponiblesSuper
-      ){
+    if(this.cupoTemporal.Q_CUPOS >= this.cupoTemporal.disponibles){
       this.modificandoCupo = true;
-      this.cupoTemporal.Q_CUPOS_REGULAR_DISPONIBLES = this.cupoTemporal.Q_CUPOS_REGULAR - this.cupoTemporal.disponiblesRegular;
-      this.cupoTemporal.Q_CUPOS_NEOPANAMAX_DISPONIBLES = this.cupoTemporal.Q_CUPOS_NEOPANAMAX - this.cupoTemporal.disponiblesNeo;
-      this.cupoTemporal.Q_CUPOS_SUPER_DISPONIBLES = this.cupoTemporal.Q_CUPOS_SUPER - this.cupoTemporal.disponiblesSuper;
+      this.cupoTemporal.Q_CUPOS_DISPONIBLES = this.cupoTemporal.Q_CUPOS - this.cupoTemporal.disponibles;
       this.oracle.actualizarCupo(this.cupoTemporal)
         .toPromise()
           .then((res:any) => {
@@ -108,9 +122,7 @@ export class CupoComponent implements OnInit {
 
   editarCupo(cupoSeleccionado: any){
     this.cupoTemporal = JSON.parse(JSON.stringify(cupoSeleccionado));
-    this.cupoTemporal.disponiblesRegular = this.cupoTemporal.Q_CUPOS_REGULAR - this.cupoTemporal.Q_CUPOS_REGULAR_DISPONIBLES; 
-    this.cupoTemporal.disponiblesNeo = this.cupoTemporal.Q_CUPOS_NEOPANAMAX - this.cupoTemporal.Q_CUPOS_NEOPANAMAX_DISPONIBLES; 
-    this.cupoTemporal.disponiblesSuper = this.cupoTemporal.Q_CUPOS_SUPER - this.cupoTemporal.Q_CUPOS_SUPER_DISPONIBLES; 
+    this.cupoTemporal.disponibles = this.cupoTemporal.Q_CUPOS - this.cupoTemporal.Q_CUPOS_DISPONIBLES; 
     this.formModificarCupo = true;
   }
 

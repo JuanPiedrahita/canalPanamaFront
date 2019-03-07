@@ -1,0 +1,166 @@
+<div class="col center">
+    <form (ngSubmit)="buscarReservas();buscarPasos()" #pasoFechaForm="ngForm">
+        <input [(ngModel)]="paso.F_PASO_TEMPORAL" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha" required>          
+        <input [disabled]="!pasoFechaForm.form.valid" class="btn" type="submit" value="Buscar Reservas" style="margin: auto">
+    </form>
+</div>
+<br>
+<div class="" *ngIf="fechaSeleccionada">
+  <div *ngIf="!mostrarReservas" class="center">
+    <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+    <h1>Cargando reservas</h1>
+  </div>
+  <div class="" *ngIf="mostrarReservas">
+    <h2 class="center"> Reservas</h2>
+    <br>
+    <table style="width:100%; text-align:center">
+      <tr>
+        <th>ID </th>
+        <th>k_SIN </th>
+        <th>N_NOMBRE_BUQUE </th>
+        <th>N_TIPO_BUQUE </th>
+        <th>N_SENTIDO </th>
+        <th>F_RESERVA </th>
+        <th>PUERTOS</th>
+        <th>I_ESTADO</th>
+        <th>V_RESERVA</th>
+        <th>N_RESTRICCIONES</th>
+        <th>ACCIONES</th>
+      </tr>
+      <tr *ngFor="let reserva of reservas">
+        <th>{{reserva.K_NUMERO_RESERVA}} </th>
+        <th>{{reserva.K_SIN}} </th>
+        <th>{{reserva.N_NOMBRE_BUQUE}} </th>
+        <th>{{reserva.N_TIPO_BUQUE}} </th>
+        <th>{{reserva.N_SENTIDO}} </th>
+        <th>{{reserva.F_RESERVA}} </th>
+        <th>{{reserva.N_PUERTO_SALIDA}} -> {{reserva.N_PUERTO_LLEGADA}}</th>
+        <th>{{reserva.I_ESTADO}}</th>
+        <th>{{reserva.V_RESERVA}}</th>
+        <th>{{reserva.N_RESTRICCIONES}}</th> 
+        <th> 
+          <i (click)="registrarPaso(reserva)" class="fa fa-check fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Editar Reserva"></i>
+        </th>
+      </tr>
+    </table>
+  </div>
+</div>
+<br>
+<div class="" *ngIf="fechaSeleccionada">
+  <div *ngIf="!mostrarPasos" class="center">
+    <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+    <h1>Cargando Pasos</h1>
+  </div>
+  <div class="" *ngIf="mostrarPasos">
+    <h2 class="center"> Pasos</h2>
+    <br>
+    <table style="width:100%; text-align:center">
+      <tr>
+        <th>ID</th>
+        <th>N_ESCLUSA </th>
+        <th>N_SENTIDO </th>
+        <th>F_PASO </th>
+        <th>N_BUQUE </th>
+        <th>PUERTOS</th>
+        <th>N_CLIENTE</th>
+        <th>VALOR</th>
+        <th>K_RESERVA</th>
+        <th>CARGADO</th>
+        <th>I_ESTADO</th>
+        <th>N_TIPO_CARGA</th>
+        <th>TRIPULACION</th>
+      </tr>
+      <tr *ngFor="let paso of pasos">
+        <th>{{paso.K_ID}} </th>
+        <th>{{paso.N_ESCLUSA}} </th>
+        <th>{{paso.N_SENTIDO}} </th>
+        <th>{{paso.F_PASO}} </th>
+        <th>{{paso.N_BUQUE}} </th>
+        <th>{{paso.N_PUERTO_SALIDA}} -> {{paso.N_PUERTO_LLEGADA}}</th>
+        <th>{{paso.N_CLIENTE}}</th>
+        <th>{{paso.V_PAGO_PASO}}</th> 
+        <th>{{paso.K_RESERVA}}</th>
+        <th>{{paso.V_CARGADO}}</th>
+        <th>{{paso.I_ESTADO}}</th>
+        <th>{{paso.N_TIPO_CARGA}}</th>
+        <th> 
+          <i (click)="verTripulacion(paso)" class="fa fa-eye fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Ver Tripulacion"></i>
+          <i (click)="agregarTripulante(paso)" class="fa fa-plus fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Agregar Tripulante"></i>
+        </th>
+      </tr>
+    </table>
+  </div>
+</div>
+<br>
+<div class="" *ngIf="permitirVerTripulacion">
+  <div *ngIf="!mostrarTripulantes" class="center">
+    <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+    <h1>Cargando Tripulantes</h1>
+  </div>
+  <div class="" *ngIf="mostrarTripulantes">
+    <h2 class="center"> Tripulantes </h2>
+    <br>
+    <table style="width:100%; text-align:center">
+      <tr>
+        <th>K_ID</th>
+        <th>N_NOMBRE </th>
+        <th>N_APELLIDO </th>
+      </tr>
+      <tr *ngFor="let tripulante of tripulantes">
+        <th>{{tripulante.K_ID}} </th>
+        <th>{{tripulante.N_NOMBRE}} </th>
+        <th>{{tripulante.N_APELLIDO}} </th>
+      </tr>
+    </table>
+  </div>
+</div>
+<br>
+<div *ngIf="permitirAgregarTripulante" class="center">
+      <div *ngIf="!registrandoTripulante">
+        <form (ngSubmit)="crearTripulante()" #tripulanteForm="ngForm">
+            <input [(ngModel)]="tripulante.N_NOMBRE" name="nombre" class="txt" type="text" placeholder="Ingreser el nombre" required>
+            <input [(ngModel)]="tripulante.N_APELLIDO" name="nombre" class="txt" type="text" placeholder="Ingreser el apellido" required>
+            <input [disabled]="!tripulanteForm.form.valid" class="btn" type="submit" value="Insertar tripulante" style="margin: auto">
+        </form>
+      </div>
+      <div *ngIf="registrandoTripulante">
+        <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+        <h1>Registrando Tripulante</h1>
+      </div>
+  </div>
+<div *ngIf="permitirRegistrarPaso" class="center">
+      <div *ngIf="!registrandoPaso">
+        <form (ngSubmit)="crearPaso()" #pasoForm="ngForm">
+            
+           	<select [(ngModel)]="paso.N_ESCLUSA" name="roleBuque" placeholder="Seleccione el tipo de esclusa" required> 
+              <option  value="NORMAL">NORMAL</option>
+              <option  value="NEOPANAMAX">NEOPANAMAX</option>
+            </select>
+            <br>
+            <br>
+            <input [(ngModel)]="paso.V_HORA" name="nombre" class="txt" type="number" placeholder="Ingreser la hora del paso" required>
+            <select [(ngModel)]="paso.K_CLIENTE" name="roleBuque" placeholder="Seleccione el cliente" required> 
+              <option  *ngFor="let cliente of clientes" [ngValue]="cliente.K_CLIENTE">{{cliente.N_NOMBRE}}</option>
+            </select>
+            <br>
+            <br>
+            <select [(ngModel)]="paso.V_CARGADO" name="roleBuque" placeholder="Barco cargado?" required> 
+              <option  value="SI">SI</option>
+              <option  value="NO">NO</option>
+            </select>
+            <br>
+            <br>
+            <input [(ngModel)]="paso.V_CARGA" name="nombre" class="txt" type="number" placeholder="Ingrese la carga" required>
+            <select [(ngModel)]="paso.K_TIPO_CARGA" name="roleBuque" placeholder="Seleccione el tipo de carga" required> 
+              <option  *ngFor="let tipoCarga of tiposCarga" [ngValue]="tipoCarga.K_TIPO_CARGA">{{tipoCarga.N_DESCRIPCION}}</option>
+            </select>
+            <br>
+            <br>
+            <input [disabled]="!pasoForm.form.valid" class="btn" type="submit" value="Insertar paso" style="margin: auto">
+        </form>
+      </div>
+      <div *ngIf="registrandoPaso">
+        <i class="fa fa-spinner faa-spin animated" style="font-size:100px;"></i>
+        <h1>Registrando Paso</h1>
+      </div>
+  </div>

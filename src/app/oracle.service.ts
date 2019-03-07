@@ -38,7 +38,19 @@ export class OracleService {
   eliminarReserva: string = "reserva/delete";
   modificarReserva: string = "reserva/update";
   obtenerReservasPaso: string = "reserva/paso";
+  reservasFecha: string = "reserva/allFechas";
+  puerto: string = "general/getPuerto";
+  tipoCarga: string = "general/getTipoCarga";
   roles: string = "usuario/roles"; 
+  subasta: string = "subasta/allSubastas";
+  pujar: string = "subasta/pujar";
+  closeSubasta: string = "subasta/cerrar";
+  pujas: string = "subasta/allPujas";
+  pasosFecha: string = "paso/allFechas";
+  newPaso: string = "paso/new";
+  newTripulante: string = "paso/tripulanteNew";
+  tripulantesPaso: string  = "paso/tripulantesPaso";
+  pagosUsario: string = "pago/allPagos";
 
 
   constructor(private http: Http) { }
@@ -154,8 +166,8 @@ export class OracleService {
     return this.oraclePost(this.insertarReserva,reserva);
   }
 
-  deleteReserva(k_numero: number,f_fecha: Date,tipoBuque:string){
-    return this.oraclePost(this.eliminarReserva, {"k_numero":k_numero,"f_fecha":f_fecha,"tipoBuque":tipoBuque});
+  deleteReserva(reserva: any){
+    return this.oraclePost(this.eliminarReserva, reserva);
   }
 
   updateReserva(k_numero: number, f_fecha_antigua: Date, f_fecha_nueva: Date,tipoBuque:string){
@@ -173,6 +185,54 @@ export class OracleService {
 
   getTipoBuque(){
     return this.oracleGet(this.tipoBuque,null);
+  }
+
+  getPuertos(){
+    return this.oracleGet(this.puerto,null);
+  }
+
+  getTipoCarga(){
+    return this.oracleGet(this.tipoCarga,null);
+  }
+
+  getSubastas(){
+    return this.oracleGet(this.subasta,null);
+  };
+
+  getPujas(subasta:any){
+    return this.oracleGet(this.pujas,subasta);
+  };
+
+  postPuja(puja: any){
+    return this.oraclePost(this.pujar,puja);
+  }
+
+  cerrarSubasta(subasta: any){
+    return this.oraclePost(this.closeSubasta,subasta);
+  }
+
+  getReservasFecha(f_fecha: any){
+    return this.oracleGet(this.reservasFecha,{"f_paso":f_fecha});
+  }
+
+  getPasosFecha(f_fecha: any){
+    return this.oracleGet(this.pasosFecha,{"f_paso":f_fecha});
+  }
+
+  postPaso(paso: any){
+    return this.oraclePost(this.newPaso,paso);
+  }
+
+  postTripulantePaso(tripulante: any){
+    return this.oraclePost(this.newTripulante,tripulante);
+  }
+
+  getTripulantesPaso(paso: any){
+    return this.oracleGet(this.tripulantesPaso,paso);
+  }
+
+  getPagosUsuario(username: string){
+    return this.oracleGet(this.pagosUsario, {"N_USER":username});
   }
 
 }

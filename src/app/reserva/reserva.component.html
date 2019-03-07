@@ -6,37 +6,40 @@
   <div class="" *ngIf="mostrarReservas">
     <h2 class="center"> Reservas</h2>
     <br>
-    <table style="width:80%; text-align:center">
+    <table style="width:100%; text-align:center">
       <tr>
-        <th>K_NUMERO </th>
+        <th>ID </th>
         <th>k_SIN </th>
-        <th>N_NOMBRE </th>
+        <th>N_NOMBRE_BUQUE </th>
         <th>N_TIPO_BUQUE </th>
         <th>N_SENTIDO </th>
-        <th>F_FECHA </th>
-        <th>N_PUERTO_LLEGADA</th>
-        <th>N_PUERTO_SALIDA</th> 
-        <th>N_TIPO_CARGA</th> 
+        <th>F_RESERVA </th>
+        <th>PUERTOS</th>
+        <th>I_ESTADO</th>
+        <th>V_RESERVA</th>
+        <th>N_RESTRICCIONES</th>
         <th>ACCIONES</th>
       </tr>
       <tr *ngFor="let reserva of reservas">
-        <th>{{reserva.K_NUMERO}} </th>
+        <th>{{reserva.K_NUMERO_RESERVA}} </th>
         <th>{{reserva.K_SIN}} </th>
-        <th>{{reserva.N_NOMBRE}} </th>
+        <th>{{reserva.N_NOMBRE_BUQUE}} </th>
         <th>{{reserva.N_TIPO_BUQUE}} </th>
         <th>{{reserva.N_SENTIDO}} </th>
-        <th>{{reserva.F_FECHA}} </th>
-        <th>{{reserva.N_PUERTO_LLEGADA}}</th>
-        <th>{{reserva.N_PUERTO_SALIDA}}</th> 
-        <th>{{reserva.N_TIPO_CARGA}}</th> 
+        <th>{{reserva.F_RESERVA}} </th>
+        <th>{{reserva.N_PUERTO_SALIDA}} -> {{reserva.N_PUERTO_LLEGADA}}</th>
+        <th>{{reserva.I_ESTADO}}</th>
+        <th>{{reserva.V_RESERVA}}</th>
+        <th>{{reserva.N_RESTRICCIONES}}</th> 
         <th> 
-          <i (click)="editarReserva(reserva)" class="fa fa-pencil fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Editar Reserva"></i>
-          <i (click)="eliminarReserva(reserva)" class="fa fa-trash fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Eliminar Reserva"></i>
+          <!--i (click)="editarReserva(reserva)" class="fa fa-pencil fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Editar Reserva"></i-->
+          <i (click)="eliminarReserva(reserva)" class="fa fa-trash fa-lg  faa-shake animated-hover" aria-hidden="true" data-toggle="tooltip" title="Cancelar Reserva"></i>
         </th>
       </tr>
     </table>
   </div>
 </div>
+<br>
 <div class="col center">
   <input (click)="formAgregarReserva=!formAgregarReserva" class="btn" type="submit" value="Crear Reserva?" style="margin: auto">
   <br>
@@ -44,33 +47,35 @@
       <div *ngIf="!registrandoReserva && !verificando">
       	<div *ngIf="!cuposDisponibles">
 	      	<form (ngSubmit)="verificarDisponibilidad()" #disponibilidadForm="ngForm">
-	      		<input [(ngModel)]="reserva.F_FECHA" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha de la reserva" required [min]="dateToday">
+	      		<input [(ngModel)]="reserva.F_RESERVA" name="nombre" class="txt" type="date" placeholder="Seleccione la fecha de la reserva" required [min]="dateToday">
 	      		<select [(ngModel)]="reserva.buque" name="nombre" placeholder="Seleccione el buque" required> 
 	              <option  *ngFor="let buque of buques" [ngValue]="buque"> Buque {{buque.N_TIPO_BUQUE}}: {{buque.K_SIN}}-{{buque.N_NOMBRE}}</option>
-	            </select>
-	            <br>
-	            <br>
-	            <input [disabled]="!disponibilidadForm.form.valid" class="btn" type="submit" value="Verificar Disponibilidad" style="margin: auto">
+            </select>
+            <br>
+            <br>
+	           <input [disabled]="!disponibilidadForm.form.valid" class="btn" type="submit" value="Verificar Disponibilidad" style="margin: auto">
 	      	</form>
       	</div>
       	<div *ngIf="cuposDisponibles">
 	        <form (ngSubmit)="crearReserva()" #reservaForm="ngForm">
 	            
-	            <input [(ngModel)]="reserva.K_NUMERO" name="nombre" class="txt" type="number" placeholder="Digite el id de la reserva" required>
 	            <select [(ngModel)]="reserva.N_SENTIDO" name="sentido" placeholder="Seleccione el sentido" required> 
 	              <option  value="SUR">SUR</option>
 	              <option  value="NORTE">NORTE</option>
 	            </select>
 	            <br>
 	            <br>
-	            <input [(ngModel)]="reserva.N_PUERTO_LLEGADA" name="nombre" class="txt" type="text" placeholder="Digite el pruerto de llegada" required>
-	            <input [(ngModel)]="reserva.N_PUERTO_SALIDA" name="nombre" class="txt" type="text" placeholder="Digite el pruerto de salida" required>
-	            <input [(ngModel)]="reserva.N_TIPO_CARGA" name="nombre" class="txt" type="text" placeholder="Digite el tipo de carga" required>
-	            <!--select [(ngModel)]="reserva.buque" name="nombre" placeholder="Seleccione el buque" required> 
-	              <option  *ngFor="let buque of buques" [ngValue]="buque"> Buque {{buque.N_TIPO_BUQUE}}: {{buque.K_SIN}}-{{buque.N_NOMBRE}}</option>
-	            </select>
+              <input [(ngModel)]="reserva.N_RESTRICCIONES" name="nombre" class="txt" type="text" placeholder="Ingrese las restricciones" required [min]="dateToday">
+	            <select [(ngModel)]="reserva.K_PUERTO_LLEGADA" name="nombre" placeholder="Seleccione el puerto de llegada" required> 
+                <option  *ngFor="let puerto of puertos" [ngValue]="puerto.K_PUERTO"> {{puerto.N_NOMBRE}}</option>
+              </select>
+              <br>
+              <br>
+              <select [(ngModel)]="reserva.K_PUERTO_SALIDA" name="nombre" placeholder="Seleccione el puerto de salida" required>
+                <option  *ngFor="let puerto of puertos" [ngValue]="puerto.K_PUERTO"> {{puerto.N_NOMBRE}}</option>
+              </select>
 	            <br>
-	            <br-->
+	            <br>
 	            <input [disabled]="!reservaForm.form.valid && cuposDisponibles" class="btn" type="submit" value="Crear Reserva" style="margin: auto">
 	        </form>
     	</div>
