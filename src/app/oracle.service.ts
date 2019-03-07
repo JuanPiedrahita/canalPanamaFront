@@ -51,6 +51,7 @@ export class OracleService {
   newTripulante: string = "paso/tripulanteNew";
   tripulantesPaso: string  = "paso/tripulantesPaso";
   pagosUsario: string = "pago/allPagos";
+  pagarPago: string = "pago/pagar";
 
 
   constructor(private http: Http) { }
@@ -234,5 +235,10 @@ export class OracleService {
   getPagosUsuario(username: string){
     return this.oracleGet(this.pagosUsario, {"N_USER":username});
   }
+
+  postPago(pago: any){
+    return this.oraclePost(this.pagarPago,pago);
+  }
+
 
 }

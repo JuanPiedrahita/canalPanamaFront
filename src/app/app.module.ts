@@ -23,6 +23,7 @@ import { ProgramacionComponent } from './programacion/programacion.component';
 import { SubastaComponent } from './subasta/subasta.component';
 import { PasoComponent } from './paso/paso.component';
 import { PagoComponent } from './pago/pago.component';
+import { BancoService } from './services/banco.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PagoComponent } from './pago/pago.component';
     HttpModule
   ],
   providers: [
-      OracleService
+      OracleService,
+      BancoService
   ],
   bootstrap: [AppComponent]
 })
