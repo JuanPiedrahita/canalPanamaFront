@@ -10,6 +10,8 @@ import { DisponibilidadComponent } from './disponibilidad/disponibilidad.compone
 import { ReservaComponent } from './reserva/reserva.component'
 import { ProgramacionComponent } from './programacion/programacion.component';
 import { SubastaComponent } from './subasta/subasta.component';
+import { PasoComponent } from './paso/paso.component';
+import { PagoComponent } from './pago/pago.component';
 
 const routes: Routes = [
   {
@@ -47,6 +49,14 @@ const routes: Routes = [
   {
     path: 'subasta',
     component: SubastaComponent
+  },
+  {
+    path: 'paso',
+    component: PasoComponent
+  },
+  {
+    path: 'pago',
+    component: PagoComponent
   },
 ];
 

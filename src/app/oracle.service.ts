@@ -38,6 +38,7 @@ export class OracleService {
   eliminarReserva: string = "reserva/delete";
   modificarReserva: string = "reserva/update";
   obtenerReservasPaso: string = "reserva/paso";
+  reservasFecha: string = "reserva/allFechas";
   puerto: string = "general/getPuerto";
   tipoCarga: string = "general/getTipoCarga";
   roles: string = "usuario/roles"; 
@@ -45,6 +46,11 @@ export class OracleService {
   pujar: string = "subasta/pujar";
   closeSubasta: string = "subasta/cerrar";
   pujas: string = "subasta/allPujas";
+  pasosFecha: string = "paso/allFechas";
+  newPaso: string = "paso/new";
+  newTripulante: string = "paso/tripulanteNew";
+  tripulantesPaso: string  = "paso/tripulantesPaso";
+  pagosUsario: string = "pago/allPagos";
 
 
   constructor(private http: Http) { }
@@ -205,5 +211,28 @@ export class OracleService {
     return this.oraclePost(this.closeSubasta,subasta);
   }
 
+  getReservasFecha(f_fecha: any){
+    return this.oracleGet(this.reservasFecha,{"f_paso":f_fecha});
+  }
+
+  getPasosFecha(f_fecha: any){
+    return this.oracleGet(this.pasosFecha,{"f_paso":f_fecha});
+  }
+
+  postPaso(paso: any){
+    return this.oraclePost(this.newPaso,paso);
+  }
+
+  postTripulantePaso(tripulante: any){
+    return this.oraclePost(this.newTripulante,tripulante);
+  }
+
+  getTripulantesPaso(paso: any){
+    return this.oracleGet(this.tripulantesPaso,paso);
+  }
+
+  getPagosUsuario(username: string){
+    return this.oracleGet(this.pagosUsario, {"N_USER":username});
+  }
 
 }

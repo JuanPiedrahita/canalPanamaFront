@@ -21,6 +21,8 @@ import { DisponibilidadComponent } from './disponibilidad/disponibilidad.compone
 import { ReservaComponent } from './reserva/reserva.component';
 import { ProgramacionComponent } from './programacion/programacion.component';
 import { SubastaComponent } from './subasta/subasta.component';
+import { PasoComponent } from './paso/paso.component';
+import { PagoComponent } from './pago/pago.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { SubastaComponent } from './subasta/subasta.component';
     DisponibilidadComponent,
     ReservaComponent,
     ProgramacionComponent,
-    SubastaComponent
+    SubastaComponent,
+    PasoComponent,
+    PagoComponent
   ],
   imports: [
     BrowserModule,
